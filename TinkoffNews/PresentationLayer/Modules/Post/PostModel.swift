@@ -10,6 +10,8 @@ import UIKit
 
 protocol IPostModel {
     var postId: String { get }
+    var postTitle: String { get }
+    var postDate: String { get }
     
     func getNewsPost(id: String, completion: @escaping (NSAttributedString?, String?) -> ())
 }
@@ -32,6 +34,21 @@ class PostModel: IPostModel {
     
     var postId: String {
         return newsItem.id
+    }
+    
+    var postTitle: String {
+        guard let title = newsItem.title else { return String() }
+        return title
+    }
+    
+    var postDate: String {
+        let time = newsItem.publicationDate.milliseconds
+        let date = Date(timeIntervalSince1970: TimeInterval(time / 1000))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        
+        return dateFormatter.string(from: date)
     }
     
     func getNewsPost(id: String, completion: @escaping (NSAttributedString?, String?) -> ()) {

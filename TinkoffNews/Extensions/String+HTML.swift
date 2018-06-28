@@ -11,7 +11,6 @@ import UIKit
 extension String {
     
     init?(htmlEncodedString: String) {
-        
         guard let data = htmlEncodedString.data(using: .utf8) else {
             return nil
         }

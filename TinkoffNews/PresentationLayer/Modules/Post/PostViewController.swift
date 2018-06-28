@@ -13,9 +13,9 @@ class PostViewController: UIViewController {
     
     // MARK: - UI
     
-    @IBOutlet private weak var noContentLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var spinner: UIActivityIndicatorView!
-    @IBOutlet private weak var postTextView: UITextView!
+    @IBOutlet private weak var postTextLabel: UILabel!
     
     // MARK: - Dependency
     
@@ -51,12 +51,11 @@ class PostViewController: UIViewController {
             DispatchQueue.main.async {
                 if let error = error {
                     self?.showMessage(for: error)
-                    self?.postTextView.isHidden = true
-                    self?.noContentLabel.isHidden = false
+                    self?.postTextLabel.text = "No data available, try to open later"
+                    self?.postTextLabel.textColor = .darkGray
                 } else {
-                    self?.postTextView.attributedText = attributedText
-                    self?.postTextView.isHidden = false
-                    self?.noContentLabel.isHidden = true
+                    self?.postTextLabel.attributedText = attributedText
+                    self?.postTextLabel.textColor = .black
                 }
                 
                 self?.spinner.stopAnimating()
@@ -65,7 +64,9 @@ class PostViewController: UIViewController {
     }
     
     private func configureUI() {
-        navigationItem.title = String()
+        titleLabel.text = model.postTitle
+        
+        navigationItem.title = model.postDate
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
     }

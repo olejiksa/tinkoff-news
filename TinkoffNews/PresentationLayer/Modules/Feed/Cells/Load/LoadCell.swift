@@ -10,6 +10,6 @@ import UIKit
 
 class LoadCell: UITableViewCell {
     
-    // TODO: - LoadCell features
+    // TODO: - LoadCell features (if needed)
     
 }
