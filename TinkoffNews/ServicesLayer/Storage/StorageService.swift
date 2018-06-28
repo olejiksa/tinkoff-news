@@ -7,13 +7,15 @@
 //
 
 protocol IStorageService {
+    func getViewsCounts(page: Int, completion: @escaping ([String: Int]?, String?) -> ())
+    
     func isEmpty(for page: Int) -> Bool
     
-    func saveNews(_ model: FeedItem, completion: @escaping ((String?) -> ()))
+    func saveFeedItem(_ model: FeedItem, completion: @escaping ((String?) -> ()))
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ()))
 }
 
-class StorageService: IFeedService, IPostService, IStorageService {
+class StorageService: IFeedService, IStorageService {
     
     // MARK: - Dependency
     
@@ -31,24 +33,22 @@ class StorageService: IFeedService, IPostService, IStorageService {
         storageManager.fetchNewsFeed(offset: (page - 1) * 20, completion: completion)
     }
     
-    // MARK: - IPostService
-    
-    func getNewsPost(id: String, completion: @escaping (PostItem?, String?) -> ()) {
-        //
-    }
-    
     // MARK: - IStorageService
+    
+    func getViewsCounts(page: Int, completion: @escaping ([String: Int]?, String?) -> ()) {
+        storageManager.fetchViewCounts(offset: (page - 1) * 20, completion: completion)
+    }
     
     func isEmpty(for page: Int) -> Bool {
         return storageManager.isEmpty(offset: (page - 1) * 20)
     }
     
-    func saveNews(_ model: FeedItem, completion: @escaping ((String?) -> ())) {
-        storageManager.saveNews(model, completion: completion)
+    func saveFeedItem(_ model: FeedItem, completion: @escaping ((String?) -> ())) {
+        storageManager.saveItem(model, completion: completion)
     }
     
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ())) {
-        storageManager.saveNews(newsFeed, completion: completion)
+        storageManager.saveNewsFeed(newsFeed, completion: completion)
     }
     
 }

@@ -26,7 +26,8 @@ class PresentationAssembly: IPresentationAssembly {
     // MARK: - FeedViewController
     
     func feedViewController() -> FeedViewController {
-        let feedModel: IFeedModel = FeedModel(feedService: servicesAssembly.feedService, storageService: servicesAssembly.storageService)
+        let feedModel: IFeedModel = FeedModel(feedService: servicesAssembly.feedService,
+                                              storageService: servicesAssembly.storageService)
         return FeedViewController(model: feedModel, presentationAssembly: self)
     }
     

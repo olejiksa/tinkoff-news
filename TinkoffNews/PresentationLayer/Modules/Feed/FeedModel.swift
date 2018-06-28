@@ -9,8 +9,9 @@
 protocol IFeedModel {
     var data: [FeedItem] { get set }
     
-    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy, manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
-    func saveNews(index: Int, completion: @escaping ((String?) -> ()))
+    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
+                     manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
+    func saveFeedItem(index: Int, completion: @escaping ((String?) -> ()))
     func saveNews(completion: @escaping ((String?) -> ()))
 }
 
@@ -33,7 +34,8 @@ class FeedModel: IFeedModel {
     private var useCache: Bool = true
     var data = [FeedItem]()
     
-    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy, manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
+    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
+                     manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
         /* Проверка наличия новостей в кэше для соответствующей "страницы"
            и выбор подходящего сервиса */
         let service: IFeedService
@@ -64,34 +66,56 @@ class FeedModel: IFeedModel {
             }
             
             if !self.useCache {
-                for i in 0..<newsItems.count {
-                    for oldItem in self.data.filter({ $0.viewsCount > 0 }) {
-                        if newsItems[i].id == oldItem.id {
-                            newsItems[i].viewsCount += oldItem.viewsCount
+                // Получение данных из кэша для сравнения с данными из сети
+                self.storageService.getViewsCounts(page: page) { [unowned self] viewsCounts, error in
+                    guard let viewsCounts = viewsCounts else {
+                        completion(nil, error, false)
+                        return
+                    }
+                    
+                    // Синхронизация счетчиков просмотров
+                    for i in 0..<newsItems.count {
+                        for oldItem in viewsCounts {
+                            if newsItems[i].id == oldItem.key {
+                                newsItems[i].viewsCount += oldItem.value
+                            }
                         }
                     }
+                    
+                    self.completeFetching(service: service, newsItems: newsItems,
+                                     mergePolicy: mergePolicy, completion: completion)
                 }
+            } else {
+                self.completeFetching(service: service, newsItems: newsItems,
+                                 mergePolicy: mergePolicy, completion: completion)
             }
-            
-            switch mergePolicy {
-            case .overwrite:
-                self.data = newsItems
-            case .append:
-                self.data += newsItems
-            }
-            
-            /* Возвращаются новости, ошибка (если есть) и флаг необходимости сохранения
-               Уже закэшированные новости не подлежат повторному добавлению в кэш */
-            completion(newsItems, nil, !(service is IStorageService))
         }
     }
     
-    func saveNews(index: Int, completion: @escaping ((String?) -> ())) {
-        storageService.saveNews(data[index], completion: completion)
+    func saveFeedItem(index: Int, completion: @escaping ((String?) -> ())) {
+        storageService.saveFeedItem(data[index], completion: completion)
     }
     
     func saveNews(completion: @escaping ((String?) -> ())) {
         storageService.saveNews(data, completion: completion)
+    }
+    
+    // MARK: - Private methods
+    
+    func completeFetching(service: IFeedService,
+                          newsItems: [FeedItem],
+                          mergePolicy: FeedMergePolicy,
+                          completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
+        switch mergePolicy {
+        case .overwrite:
+            self.data = newsItems
+        case .append:
+            self.data += newsItems
+        }
+        
+        /* Возвращаются новости, ошибка (если есть) и флаг необходимости сохранения
+         Уже закэшированные новости не подлежат повторному добавлению в кэш */
+        completion(newsItems, nil, !(service is IStorageService))
     }
     
 }

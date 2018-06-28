@@ -9,7 +9,6 @@
 import Foundation
 
 struct FeedItem: Codable {
-    
     let id: String
     let text: String
     let publicationDate: PublicationDate
@@ -35,8 +34,7 @@ extension FeedItem: IReverseMappable {
         entity.id = model.id
         entity.name = model.text
         entity.viewsCount = Int16(model.viewsCount)
-        entity.date = Date(timeIntervalSince1970: TimeInterval(model.publicationDate.milliseconds / 1000))
-        //entity.content = model.content
+        entity.date = Date.create(from: model.publicationDate.milliseconds)
     }
 }
 

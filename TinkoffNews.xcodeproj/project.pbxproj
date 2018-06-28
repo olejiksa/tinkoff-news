@@ -45,6 +45,7 @@
 		EB504CC320E54E410065DBED /* LoadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CC220E54E410065DBED /* LoadCell.xib */; };
 		EB504CC620E5515D0065DBED /* LoadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC520E5515D0065DBED /* LoadCell.swift */; };
 		EB504CC920E556B40065DBED /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC820E556B40065DBED /* String+HTML.swift */; };
+		EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		EB504CC220E54E410065DBED /* LoadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadCell.xib; sourceTree = "<group>"; };
 		EB504CC520E5515D0065DBED /* LoadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCell.swift; sourceTree = "<group>"; };
 		EB504CC820E556B40065DBED /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
+		EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Milliseconds.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +109,8 @@
 				EB2B53E520E3AA3C001B387C /* IMappable.swift */,
 				EB504CB220E478B20065DBED /* IReverseMappable.swift */,
 				EB2B53D920E3A384001B387C /* CoreDataStack.swift */,
-				EB2B53E320E3AA25001B387C /* News.swift */,
 				EB2B53DB20E3A5CB001B387C /* StorageManager.swift */,
+				EB2B53E320E3AA25001B387C /* News.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -326,6 +328,7 @@
 		EB504CC720E556A20065DBED /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */,
 				EB504CC820E556B40065DBED /* String+HTML.swift */,
 			);
 			path = Extensions;
@@ -408,6 +411,7 @@
 				EB2B53DA20E3A384001B387C /* CoreDataStack.swift in Sources */,
 				EB40F20620E16091004216E2 /* RequestFactory.swift in Sources */,
 				EB40F21120E17B72004216E2 /* PostModel.swift in Sources */,
+				EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */,
 				EB504CC920E556B40065DBED /* String+HTML.swift in Sources */,
 				EB2B53E620E3AA3C001B387C /* IMappable.swift in Sources */,
 				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,

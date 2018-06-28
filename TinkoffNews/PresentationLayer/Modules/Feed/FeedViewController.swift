@@ -103,7 +103,6 @@ class FeedViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    
     // MARK: - Selector
     
     @objc private func updateData() {
@@ -125,7 +124,9 @@ extension FeedViewController: UITableViewDataSource {
             tableView.separatorStyle = .singleLine
             tableView.backgroundView = nil
         } else {
-            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0,
+                                                    width: tableView.bounds.size.width,
+                                                    height: tableView.bounds.size.height))
             noDataLabel.text = "No any news yet"
             noDataLabel.textColor = .darkGray
             noDataLabel.textAlignment = .center
@@ -156,7 +157,7 @@ extension FeedViewController: UITableViewDataSource {
         }
         
         cell.title = model.data[indexPath.row].title
-        cell.date = Date(timeIntervalSince1970: TimeInterval(model.data[indexPath.row].publicationDate.milliseconds / 1000))
+        cell.date = Date.create(from: model.data[indexPath.row].publicationDate.milliseconds)
         cell.viewsCount = model.data[indexPath.row].viewsCount
         
         return cell
@@ -177,7 +178,7 @@ extension FeedViewController: UITableViewDelegate {
         model.data[indexPath.row].viewsCount += 1
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
-        model.saveNews(index: indexPath.row) { [weak self] error in
+        model.saveFeedItem(index: indexPath.row) { [weak self] error in
             if let error = error {
                 self?.showMessage(for: error)
             }

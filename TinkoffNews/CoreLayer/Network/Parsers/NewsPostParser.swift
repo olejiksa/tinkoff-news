@@ -9,9 +9,7 @@
 import Foundation
 
 struct NewsPostResponse: Codable {
-    //let resultCode: String
     let payload: PostItem
-    //let trackingId: Int
 }
 
 class NewsPostParser: IParser {

@@ -6,12 +6,10 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-typealias IComplexStorageService = IFeedService & IPostService & IStorageService
-
 protocol IServicesAssembly {
     var feedService: IFeedService { get }
     var postService: IPostService { get }
-    var storageService: IFeedService & IPostService & IStorageService { get }
+    var storageService: IFeedService & IStorageService { get }
 }
 
 class ServicesAssembly: IServicesAssembly {
@@ -32,6 +30,6 @@ class ServicesAssembly: IServicesAssembly {
     
     lazy var feedService: IFeedService = newsService
     lazy var postService: IPostService = newsService
-    lazy var storageService: IComplexStorageService = StorageService(storageManager: coreAssembly.storageManager)
+    lazy var storageService: IFeedService & IStorageService = StorageService(storageManager: coreAssembly.storageManager)
     
 }

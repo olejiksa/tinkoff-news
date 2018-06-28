@@ -11,10 +11,10 @@ import CoreData
 protocol IStorageManager {
     func isEmpty(offset: Int) -> Bool
     
+    func fetchViewCounts(offset: Int, completion: @escaping ([String: Int]?, String?) -> ())
     func fetchNewsFeed(offset: Int, completion: @escaping ([FeedItem]?, String?) -> ())
-    
-    func saveNews(_ model: FeedItem, completion: @escaping (String?) -> ())
-    func saveNews(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ())
+    func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ())
+    func saveItem(_ item: FeedItem, completion: @escaping (String?) -> ())
 }
 
 class StorageManager: IStorageManager {
@@ -34,11 +34,11 @@ class StorageManager: IStorageManager {
     func isEmpty(offset: Int) -> Bool {
         var result = false
         
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
+        fetchRequest.fetchLimit = 20
+        fetchRequest.fetchOffset = offset
+        
         do {
-            let fetchRequest = NSFetchRequest<News>(entityName: "News")
-            fetchRequest.fetchLimit = 20
-            fetchRequest.fetchOffset = offset
-            
             result = try coreDataStack.mainContext.count(for: fetchRequest) == 0
         } catch {
             result = true
@@ -47,11 +47,43 @@ class StorageManager: IStorageManager {
         return result
     }
     
+    func fetchViewCounts(offset: Int, completion: @escaping ([String: Int]?, String?) -> ()) {
+        coreDataStack.mainContext.perform {
+            var newsFeed = [String: Int]()
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
+            fetchRequest.fetchLimit = 20
+            fetchRequest.fetchOffset = offset
+            fetchRequest.propertiesToFetch = ["id", "viewsCount"]
+            fetchRequest.resultType = .dictionaryResultType
+            
+            do {
+                let result = try self.coreDataStack.mainContext.fetch(fetchRequest) as? [[String: Any]]
+                guard let dictionary = result else {
+                    completion(nil, "Cannot cast fetch request result to dictionary")
+                    return
+                }
+                
+                for item in dictionary {
+                    let id = item["id"] as! String
+                    let viewsCount = item["viewsCount"] as! Int
+                    
+                    newsFeed[id] = viewsCount
+                }
+            } catch {
+                completion(nil, error.localizedDescription)
+                return
+            }
+            
+            completion(newsFeed, nil)
+        }
+    }
+    
     func fetchNewsFeed(offset: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
         coreDataStack.mainContext.perform {
             var newsFeed = [News]()
             
-            let fetchRequest = NSFetchRequest<News>(entityName: "News")
+            let fetchRequest = NSFetchRequest<News>(entityName: "\(News.self)")
             fetchRequest.fetchLimit = 20
             fetchRequest.fetchOffset = offset
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -74,27 +106,19 @@ class StorageManager: IStorageManager {
         }
     }
     
-    func saveNews(_ model: FeedItem, completion: @escaping (String?) -> ()) {
+    func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ()) {
         coreDataStack.saveContext.perform {
-            if let cachedNews = self.find(by: model.id, in: self.coreDataStack.saveContext) {
-                FeedItem.map(from: model, to: cachedNews)
-            } else if let entity = NSEntityDescription.entity(forEntityName: "News", in: self.coreDataStack.saveContext), let cachedNews = NSManagedObject(entity: entity, insertInto: self.coreDataStack.saveContext) as? News {
-                FeedItem.map(from: model, to: cachedNews)
+            for model in newsFeed {
+                News.findOrInsert(model, in: self.coreDataStack.saveContext)
             }
             
             self.performSave(in: self.coreDataStack.saveContext, completion: completion)
         }
     }
     
-    func saveNews(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ()) {
+    func saveItem(_ model: FeedItem, completion: @escaping (String?) -> ()) {
         coreDataStack.saveContext.perform {
-            for model in newsFeed {
-                if let cachedNews = self.find(by: model.id, in: self.coreDataStack.saveContext) {
-                    FeedItem.map(from: model, to: cachedNews)
-                } else if let entity = NSEntityDescription.entity(forEntityName: "News", in: self.coreDataStack.saveContext), let cachedNews = NSManagedObject(entity: entity, insertInto: self.coreDataStack.saveContext) as? News {
-                    FeedItem.map(from: model, to: cachedNews)
-                }
-            }
+            News.findOrInsert(model, in: self.coreDataStack.saveContext)
             
             self.performSave(in: self.coreDataStack.saveContext, completion: completion)
         }
@@ -121,21 +145,6 @@ class StorageManager: IStorageManager {
         } else {
             completion(nil)
         }
-    }
-    
-    private func find(by id: String, in context: NSManagedObjectContext) -> News? {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "News")
-        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
-        
-        do {
-            if let news = try context.fetch(fetchRequest).first as? News {
-                return news
-            }
-        } catch {
-            print("Could not save. \(error)")
-        }
-        
-        return nil
     }
     
 }
