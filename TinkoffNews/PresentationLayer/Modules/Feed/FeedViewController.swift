@@ -47,6 +47,7 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI()
+        configureTableView()
     }
     
     override func viewDidLoad() {
@@ -71,7 +72,7 @@ class FeedViewController: UIViewController {
                 } else {
                     self?.tableView.reloadData()
                     if save {
-                        self?.model.saveNews() { error in
+                        self?.model.saveNews() { [weak self] error in
                             if let error = error {
                                 self?.showMessage(for: error)
                             }
@@ -89,11 +90,18 @@ class FeedViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    private func configureTableView() {
+        tableView.register(UINib(nibName: "\(NewsCell.self)", bundle: nil), forCellReuseIdentifier: "\(NewsCell.self)")
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
     private func showMessage(for error: String) {
         let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+    
     
     // MARK: - Selector
     
@@ -108,24 +116,48 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var sectionsCount = 0
+        
+        if model.data.count > 0 {
+            sectionsCount = 1
+            tableView.separatorStyle = .singleLine
+            tableView.backgroundView = nil
+        } else {
+            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text = "No any news yet"
+            noDataLabel.textColor = .darkGray
+            noDataLabel.textAlignment = .center
+            
+            tableView.backgroundView = noDataLabel
+            tableView.separatorStyle = .none
+        }
+        
+        return sectionsCount
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.data.count + 1
+        return model.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "\(UITableViewCell.self)"
-        var cell: UITableViewCell
+        let identifier = "\(NewsCell.self)"
+        var cell: NewsCell
         
-        if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) {
+        if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) as? NewsCell {
             cell = dequeuedCell
         } else {
-            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+            cell = NewsCell(style: .default, reuseIdentifier: identifier)
         }
         
         if indexPath.row == model.data.count {
-            cell.textLabel?.text = "LOADING..."
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(UITableViewCell.self)", for: indexPath)
+            cell.textLabel?.text = "Loading..."
+            return cell
         } else {
-            cell.textLabel?.text = model.data[indexPath.row].text
+            cell.title = model.data[indexPath.row].text
+            cell.date = Date(timeIntervalSince1970: TimeInterval(model.data[indexPath.row].publicationDate.milliseconds / 1000))
+            cell.viewsCount = model.data[indexPath.row].viewsCount
         }
         
         return cell
@@ -138,6 +170,20 @@ extension FeedViewController: UITableViewDataSource {
 extension FeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < model.data.count else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        
+        model.data[indexPath.row].viewsCount += 1
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        model.saveNews(index: indexPath.row) { [weak self] error in
+            if let error = error {
+                self?.showMessage(for: error)
+            }
+        }
+        
         let controller = presentationAssembly.postViewController(newsItem: model.data[indexPath.row])
         
         controller.navigationItem.title = model.data[indexPath.row].text

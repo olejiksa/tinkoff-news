@@ -8,6 +8,8 @@
 
 protocol IStorageService {
     func isEmpty(for page: Int) -> Bool
+    
+    func saveNews(_ model: FeedItem, completion: @escaping ((String?) -> ()))
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ()))
 }
 
@@ -39,6 +41,10 @@ class StorageService: IFeedService, IPostService, IStorageService {
     
     func isEmpty(for page: Int) -> Bool {
         return storageManager.isEmpty(offset: (page - 1) * 20)
+    }
+    
+    func saveNews(_ model: FeedItem, completion: @escaping ((String?) -> ())) {
+        storageManager.saveNews(model, completion: completion)
     }
     
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ())) {

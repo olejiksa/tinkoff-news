@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostViewController" customModule="TinkoffNews" customModuleProvider="target">
             <connections>
+                <outlet property="noContentLabel" destination="0hM-R7-HHu" id="BAm-UY-UwF"/>
                 <outlet property="postTextView" destination="PAJ-tK-ReZ" id="DW8-eT-9lR"/>
                 <outlet property="spinner" destination="tP4-6z-78x" id="4ct-Ft-Na6"/>
                 <outlet property="view" destination="iN0-l3-epB" id="sHe-gz-NBX"/>
@@ -31,13 +32,21 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tP4-6z-78x">
                     <rect key="frame" x="177.5" y="333.5" width="20" height="20"/>
                 </activityIndicatorView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hM-R7-HHu">
+                    <rect key="frame" x="122" y="333" width="131" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="PAJ-tK-ReZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="5ck-aS-NAw"/>
                 <constraint firstItem="PAJ-tK-ReZ" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="8dD-dS-dPL"/>
+                <constraint firstItem="0hM-R7-HHu" firstAttribute="centerX" secondItem="PAJ-tK-ReZ" secondAttribute="centerX" id="F6l-FB-GbY"/>
                 <constraint firstItem="tP4-6z-78x" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="NS6-AC-Zde"/>
                 <constraint firstItem="tP4-6z-78x" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Pgo-mL-nVi"/>
+                <constraint firstItem="0hM-R7-HHu" firstAttribute="centerY" secondItem="PAJ-tK-ReZ" secondAttribute="centerY" id="RiK-RI-mmY"/>
                 <constraint firstItem="PAJ-tK-ReZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VBc-wo-5hu"/>
                 <constraint firstItem="PAJ-tK-ReZ" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="fkN-f0-Azc"/>
             </constraints>

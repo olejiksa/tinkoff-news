@@ -20,7 +20,7 @@ extension News: IMappable {
         
         return T2(id: id,
                   text: name,
-                  publicationDate: PublicationDate(milliseconds: Int(date.timeIntervalSince1970 * 1000)))
+                  publicationDate: PublicationDate(milliseconds: Int(date.timeIntervalSince1970 * 1000)), viewsCount: Int(managedObject.viewsCount))
     }
     
 }

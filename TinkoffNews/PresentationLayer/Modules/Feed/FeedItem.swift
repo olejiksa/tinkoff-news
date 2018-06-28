@@ -12,6 +12,13 @@ struct FeedItem: Codable {
     let id: String
     let text: String
     let publicationDate: PublicationDate
+    var viewsCount = 0
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case text
+        case publicationDate
+    }
 }
 
 extension FeedItem: IReverseMappable {
@@ -21,9 +28,9 @@ extension FeedItem: IReverseMappable {
     static func map(from model: T1, to entity: T2) {
         entity.id = model.id
         entity.name = model.text
+        entity.viewsCount = Int16(model.viewsCount)
         entity.date = Date(timeIntervalSince1970: TimeInterval(model.publicationDate.milliseconds / 1000))
         //entity.content = model.content
-        //entity.numberOfViews = Int32(model.numberOfView)
     }
 }
 

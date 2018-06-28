@@ -12,6 +12,8 @@ protocol IStorageManager {
     func isEmpty(offset: Int) -> Bool
     
     func fetchNewsFeed(offset: Int, completion: @escaping ([FeedItem]?, String?) -> ())
+    
+    func saveNews(_ model: FeedItem, completion: @escaping (String?) -> ())
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ())
 }
 
@@ -69,6 +71,18 @@ class StorageManager: IStorageManager {
             }
             
             completion(models, nil)
+        }
+    }
+    
+    func saveNews(_ model: FeedItem, completion: @escaping (String?) -> ()) {
+        coreDataStack.saveContext.perform {
+            if let cachedNews = self.find(by: model.id, in: self.coreDataStack.saveContext) {
+                FeedItem.map(from: model, to: cachedNews)
+            } else if let entity = NSEntityDescription.entity(forEntityName: "News", in: self.coreDataStack.saveContext), let cachedNews = NSManagedObject(entity: entity, insertInto: self.coreDataStack.saveContext) as? News {
+                FeedItem.map(from: model, to: cachedNews)
+            }
+            
+            self.performSave(in: self.coreDataStack.saveContext, completion: completion)
         }
     }
     

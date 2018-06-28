@@ -40,6 +40,8 @@
 		EB40F21720E245FC004216E2 /* NewsPostParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F21620E245FC004216E2 /* NewsPostParser.swift */; };
 		EB504CAD20E4047D0065DBED /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CAC20E4047D0065DBED /* StorageService.swift */; };
 		EB504CB320E478B20065DBED /* IReverseMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CB220E478B20065DBED /* IReverseMappable.swift */; };
+		EB504CBC20E531310065DBED /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CBB20E531310065DBED /* NewsCell.swift */; };
+		EB504CBE20E5324E0065DBED /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CBD20E5324E0065DBED /* NewsCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		EB40F21620E245FC004216E2 /* NewsPostParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostParser.swift; sourceTree = "<group>"; };
 		EB504CAC20E4047D0065DBED /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		EB504CB220E478B20065DBED /* IReverseMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IReverseMappable.swift; sourceTree = "<group>"; };
+		EB504CBB20E531310065DBED /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		EB504CBD20E5324E0065DBED /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +213,7 @@
 		EB40F1F120E14861004216E2 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				EB504CB420E523A50065DBED /* Cells */,
 				EB2B53DD20E3A6E0001B387C /* FeedItem.swift */,
 				EB2B53DF20E3A730001B387C /* FeedMergePolicy.swift */,
 				EB40F20320E1605C004216E2 /* FeedModel.swift */,
@@ -284,6 +289,15 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		EB504CB420E523A50065DBED /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EB504CBB20E531310065DBED /* NewsCell.swift */,
+				EB504CBD20E5324E0065DBED /* NewsCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -344,6 +358,7 @@
 			files = (
 				EB40F1DA20E1404B004216E2 /* LaunchScreen.storyboard in Resources */,
 				EB40F1D720E1404B004216E2 /* Assets.xcassets in Resources */,
+				EB504CBE20E5324E0065DBED /* NewsCell.xib in Resources */,
 				EB40F21320E17B7F004216E2 /* PostView.xib in Resources */,
 				EB40F1F320E148EA004216E2 /* FeedView.xib in Resources */,
 			);
@@ -360,6 +375,7 @@
 				EB40F20620E16091004216E2 /* RequestFactory.swift in Sources */,
 				EB40F21120E17B72004216E2 /* PostModel.swift in Sources */,
 				EB2B53E620E3AA3C001B387C /* IMappable.swift in Sources */,
+				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,
 				EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */,
 				EB504CB320E478B20065DBED /* IReverseMappable.swift in Sources */,
 				EB2B53E020E3A730001B387C /* FeedMergePolicy.swift in Sources */,

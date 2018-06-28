@@ -13,8 +13,9 @@ class PostViewController: UIViewController {
     
     // MARK: - UI
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var postTextView: UITextView!
+    @IBOutlet private weak var noContentLabel: UILabel!
+    @IBOutlet private weak var spinner: UIActivityIndicatorView!
+    @IBOutlet private weak var postTextView: UITextView!
     
     // MARK: - Dependency
     
@@ -50,12 +51,15 @@ class PostViewController: UIViewController {
             DispatchQueue.main.async {
                 if let error = error {
                     self?.showMessage(for: error)
+                    self?.postTextView.isHidden = true
+                    self?.noContentLabel.isHidden = false
                 } else {
                     self?.postTextView.attributedText = attributedText
+                    self?.postTextView.isHidden = false
+                    self?.noContentLabel.isHidden = true
                 }
                 
                 self?.spinner.stopAnimating()
-                self?.postTextView.isHidden = false
             }
         }
     }

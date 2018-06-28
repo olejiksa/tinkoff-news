@@ -38,6 +38,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="E09-uU-AZl" secondAttribute="trailing" id="rFr-GV-aPT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>
