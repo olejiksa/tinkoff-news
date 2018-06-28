@@ -63,18 +63,18 @@ class FeedModel: IFeedModel {
                 return
             }
             
-            switch mergePolicy {
-            case .overwrite:
-                if !self.useCache {
-                    for i in 0..<newsItems.count {
-                        for oldItem in self.data.filter({ $0.viewsCount > 0 }) {
-                            if newsItems[i].id == oldItem.id {
-                                newsItems[i].viewsCount += oldItem.viewsCount
-                            }
+            if !self.useCache {
+                for i in 0..<newsItems.count {
+                    for oldItem in self.data.filter({ $0.viewsCount > 0 }) {
+                        if newsItems[i].id == oldItem.id {
+                            newsItems[i].viewsCount += oldItem.viewsCount
                         }
                     }
                 }
-                
+            }
+            
+            switch mergePolicy {
+            case .overwrite:
                 self.data = newsItems
             case .append:
                 self.data += newsItems

@@ -9,9 +9,15 @@
 import Foundation
 
 struct FeedItem: Codable {
+    
     let id: String
     let text: String
     let publicationDate: PublicationDate
+    
+    // Decoded news title
+    var title: String? { return String(htmlEncodedString: text) }
+    
+    // Number of views
     var viewsCount = 0
 
     private enum CodingKeys: String, CodingKey {

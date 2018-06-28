@@ -92,6 +92,7 @@ class FeedViewController: UIViewController {
     
     private func configureTableView() {
         tableView.register(UINib(nibName: "\(NewsCell.self)", bundle: nil), forCellReuseIdentifier: "\(NewsCell.self)")
+        tableView.register(UINib(nibName: "\(LoadCell.self)", bundle: nil), forCellReuseIdentifier: "\(LoadCell.self)")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
     }
@@ -137,10 +138,14 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.data.count
+        return model.data.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == model.data.count {
+            return tableView.dequeueReusableCell(withIdentifier: "\(LoadCell.self)", for: indexPath)
+        }
+        
         let identifier = "\(NewsCell.self)"
         var cell: NewsCell
         
@@ -150,15 +155,9 @@ extension FeedViewController: UITableViewDataSource {
             cell = NewsCell(style: .default, reuseIdentifier: identifier)
         }
         
-        if indexPath.row == model.data.count {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "\(UITableViewCell.self)", for: indexPath)
-            cell.textLabel?.text = "Loading..."
-            return cell
-        } else {
-            cell.title = model.data[indexPath.row].text
-            cell.date = Date(timeIntervalSince1970: TimeInterval(model.data[indexPath.row].publicationDate.milliseconds / 1000))
-            cell.viewsCount = model.data[indexPath.row].viewsCount
-        }
+        cell.title = model.data[indexPath.row].title
+        cell.date = Date(timeIntervalSince1970: TimeInterval(model.data[indexPath.row].publicationDate.milliseconds / 1000))
+        cell.viewsCount = model.data[indexPath.row].viewsCount
         
         return cell
     }
@@ -185,8 +184,6 @@ extension FeedViewController: UITableViewDelegate {
         }
         
         let controller = presentationAssembly.postViewController(newsItem: model.data[indexPath.row])
-        
-        controller.navigationItem.title = model.data[indexPath.row].text
         navigationController?.pushViewController(controller, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: true)

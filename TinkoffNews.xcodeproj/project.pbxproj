@@ -42,6 +42,9 @@
 		EB504CB320E478B20065DBED /* IReverseMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CB220E478B20065DBED /* IReverseMappable.swift */; };
 		EB504CBC20E531310065DBED /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CBB20E531310065DBED /* NewsCell.swift */; };
 		EB504CBE20E5324E0065DBED /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CBD20E5324E0065DBED /* NewsCell.xib */; };
+		EB504CC320E54E410065DBED /* LoadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CC220E54E410065DBED /* LoadCell.xib */; };
+		EB504CC620E5515D0065DBED /* LoadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC520E5515D0065DBED /* LoadCell.swift */; };
+		EB504CC920E556B40065DBED /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC820E556B40065DBED /* String+HTML.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,9 @@
 		EB504CB220E478B20065DBED /* IReverseMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IReverseMappable.swift; sourceTree = "<group>"; };
 		EB504CBB20E531310065DBED /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		EB504CBD20E5324E0065DBED /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
+		EB504CC220E54E410065DBED /* LoadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadCell.xib; sourceTree = "<group>"; };
+		EB504CC520E5515D0065DBED /* LoadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCell.swift; sourceTree = "<group>"; };
+		EB504CC820E556B40065DBED /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,7 @@
 				EB40F1CC20E14049004216E2 /* AppDelegate.swift */,
 				EB40F1E520E144B6004216E2 /* RootAssembly.swift */,
 				EB40F1E420E1449F004216E2 /* Supporting Files */,
+				EB504CC720E556A20065DBED /* Extensions */,
 			);
 			path = TinkoffNews;
 			sourceTree = "<group>";
@@ -292,10 +299,36 @@
 		EB504CB420E523A50065DBED /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				EB504CC120E54E370065DBED /* News */,
+				EB504CC420E54E460065DBED /* Load */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		EB504CC120E54E370065DBED /* News */ = {
+			isa = PBXGroup;
+			children = (
 				EB504CBB20E531310065DBED /* NewsCell.swift */,
 				EB504CBD20E5324E0065DBED /* NewsCell.xib */,
 			);
-			path = Cells;
+			path = News;
+			sourceTree = "<group>";
+		};
+		EB504CC420E54E460065DBED /* Load */ = {
+			isa = PBXGroup;
+			children = (
+				EB504CC520E5515D0065DBED /* LoadCell.swift */,
+				EB504CC220E54E410065DBED /* LoadCell.xib */,
+			);
+			path = Load;
+			sourceTree = "<group>";
+		};
+		EB504CC720E556A20065DBED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EB504CC820E556B40065DBED /* String+HTML.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,6 +392,7 @@
 				EB40F1DA20E1404B004216E2 /* LaunchScreen.storyboard in Resources */,
 				EB40F1D720E1404B004216E2 /* Assets.xcassets in Resources */,
 				EB504CBE20E5324E0065DBED /* NewsCell.xib in Resources */,
+				EB504CC320E54E410065DBED /* LoadCell.xib in Resources */,
 				EB40F21320E17B7F004216E2 /* PostView.xib in Resources */,
 				EB40F1F320E148EA004216E2 /* FeedView.xib in Resources */,
 			);
@@ -374,6 +408,7 @@
 				EB2B53DA20E3A384001B387C /* CoreDataStack.swift in Sources */,
 				EB40F20620E16091004216E2 /* RequestFactory.swift in Sources */,
 				EB40F21120E17B72004216E2 /* PostModel.swift in Sources */,
+				EB504CC920E556B40065DBED /* String+HTML.swift in Sources */,
 				EB2B53E620E3AA3C001B387C /* IMappable.swift in Sources */,
 				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,
 				EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */,
@@ -392,6 +427,7 @@
 				EB40F21520E24540004216E2 /* NewsPostRequest.swift in Sources */,
 				EB40F1FB20E15E03004216E2 /* RequestConfig.swift in Sources */,
 				EB2B53DC20E3A5CB001B387C /* StorageManager.swift in Sources */,
+				EB504CC620E5515D0065DBED /* LoadCell.swift in Sources */,
 				EB40F20F20E17B6B004216E2 /* PostViewController.swift in Sources */,
 				EB2B53D220E2EB30001B387C /* IPostService.swift in Sources */,
 				EB40F20C20E1630A004216E2 /* NewsFeedParser.swift in Sources */,
