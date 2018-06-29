@@ -90,12 +90,12 @@ class FeedModel: IFeedModel {
         }
     }
     
-    func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ())) {
-        storageService.saveNewsFeedItem(data[index], completion: completion)
-    }
-    
     func saveNewsFeed(completion: @escaping ((String?) -> ())) {
         storageService.saveNewsFeed(data, completion: completion)
+    }
+    
+    func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ())) {
+        storageService.saveNewsFeedItem(data[index], completion: completion)
     }
     
     // MARK: - Private methods

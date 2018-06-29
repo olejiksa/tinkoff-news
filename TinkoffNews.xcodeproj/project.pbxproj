@@ -45,7 +45,18 @@
 		EB504CC620E5515D0065DBED /* LoadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC520E5515D0065DBED /* LoadCell.swift */; };
 		EB504CC920E556B40065DBED /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC820E556B40065DBED /* String+HTML.swift */; };
 		EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */; };
+		EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAE420E6DB0700174F67 /* StorageTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EB7EBAE720E6DB0700174F67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB40F1C120E14049004216E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB40F1C820E14049004216E2;
+			remoteInfo = TinkoffNews;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		EB2B53CF20E2EB1D001B387C /* IFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFeedService.swift; sourceTree = "<group>"; };
@@ -88,10 +99,20 @@
 		EB504CC520E5515D0065DBED /* LoadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCell.swift; sourceTree = "<group>"; };
 		EB504CC820E556B40065DBED /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Milliseconds.swift"; sourceTree = "<group>"; };
+		EB7EBAE220E6DB0700174F67 /* TinkoffNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB7EBAE420E6DB0700174F67 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		EB7EBAE620E6DB0700174F67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EB40F1C620E14049004216E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB7EBADF20E6DB0700174F67 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -116,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				EB40F1CB20E14049004216E2 /* TinkoffNews */,
+				EB7EBAE320E6DB0700174F67 /* TinkoffNewsTests */,
 				EB40F1CA20E14049004216E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				EB40F1C920E14049004216E2 /* TinkoffNews.app */,
+				EB7EBAE220E6DB0700174F67 /* TinkoffNewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,6 +354,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		EB7EBAE320E6DB0700174F67 /* TinkoffNewsTests */ = {
+			isa = PBXGroup;
+			children = (
+				EB7EBAE420E6DB0700174F67 /* StorageTests.swift */,
+				EB7EBAE620E6DB0700174F67 /* Info.plist */,
+			);
+			path = TinkoffNewsTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -351,6 +383,24 @@
 			productReference = EB40F1C920E14049004216E2 /* TinkoffNews.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EB7EBAE120E6DB0700174F67 /* TinkoffNewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB7EBAE920E6DB0700174F67 /* Build configuration list for PBXNativeTarget "TinkoffNewsTests" */;
+			buildPhases = (
+				EB7EBADE20E6DB0700174F67 /* Sources */,
+				EB7EBADF20E6DB0700174F67 /* Frameworks */,
+				EB7EBAE020E6DB0700174F67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB7EBAE820E6DB0700174F67 /* PBXTargetDependency */,
+			);
+			name = TinkoffNewsTests;
+			productName = TinkoffNewsTests;
+			productReference = EB7EBAE220E6DB0700174F67 /* TinkoffNewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -363,6 +413,10 @@
 				TargetAttributes = {
 					EB40F1C820E14049004216E2 = {
 						CreatedOnToolsVersion = 9.4.1;
+					};
+					EB7EBAE120E6DB0700174F67 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = EB40F1C820E14049004216E2;
 					};
 				};
 			};
@@ -380,6 +434,7 @@
 			projectRoot = "";
 			targets = (
 				EB40F1C820E14049004216E2 /* TinkoffNews */,
+				EB7EBAE120E6DB0700174F67 /* TinkoffNewsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -395,6 +450,13 @@
 				EB504CC320E54E410065DBED /* LoadCell.xib in Resources */,
 				EB40F21320E17B7F004216E2 /* PostView.xib in Resources */,
 				EB40F1F320E148EA004216E2 /* FeedView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB7EBAE020E6DB0700174F67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +502,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB7EBADE20E6DB0700174F67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EB7EBAE820E6DB0700174F67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EB40F1C820E14049004216E2 /* TinkoffNews */;
+			targetProxy = EB7EBAE720E6DB0700174F67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EB40F1D820E1404B004216E2 /* LaunchScreen.storyboard */ = {
@@ -604,6 +682,46 @@
 			};
 			name = Release;
 		};
+		EB7EBAEA20E6DB0700174F67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2FMGUSH44;
+				INFOPLIST_FILE = TinkoffNewsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkoffNews.app/TinkoffNews";
+			};
+			name = Debug;
+		};
+		EB7EBAEB20E6DB0700174F67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2FMGUSH44;
+				INFOPLIST_FILE = TinkoffNewsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkoffNews.app/TinkoffNews";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -621,6 +739,15 @@
 			buildConfigurations = (
 				EB40F1DF20E1404B004216E2 /* Debug */,
 				EB40F1E020E1404B004216E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB7EBAE920E6DB0700174F67 /* Build configuration list for PBXNativeTarget "TinkoffNewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB7EBAEA20E6DB0700174F67 /* Debug */,
+				EB7EBAEB20E6DB0700174F67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -69,16 +69,14 @@ class PostModel: IPostModel {
             }
             
             self.postItem = postItem
-            
-            guard let htmlData = NSString(string: post.content).data(using: String.Encoding.unicode.rawValue),
-                let htmlText = try? NSAttributedString(data: htmlData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) else {
-                    completion(nil, "HTML cannot be parsed into NSAttributedString.")
-                    return
+            guard let parsedString = String(htmlEncodedString: post.content) else {
+                completion(nil, "HTML cannot be parsed into NSAttributedString.")
+                return
             }
             
             let font = UIFont.preferredFont(forTextStyle: .body)
             let attributes = [NSAttributedStringKey.font: font]
-            let attributedText = NSMutableAttributedString(string: htmlText.string, attributes: attributes)
+            let attributedText = NSMutableAttributedString(string: parsedString, attributes: attributes)
             
             completion(attributedText, nil)
         }

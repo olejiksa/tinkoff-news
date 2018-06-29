@@ -12,7 +12,7 @@ protocol ICoreAssembly {
 }
 
 class CoreAssembly: ICoreAssembly {
-    private lazy var coreDataStack: ICoreDataStack = CoreDataStack(resourseName: "TinkoffNews")
+    private lazy var coreDataStack: ICoreDataStack = CoreDataStack(resourseName: "TinkoffNews", storeType: .sqlite)
     
     lazy var requestSender: IRequestSender = RequestSender()
     lazy var storageManager: IStorageManager = StorageManager(coreDataStack: coreDataStack)

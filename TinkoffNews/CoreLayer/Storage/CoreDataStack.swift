@@ -20,11 +20,20 @@ class CoreDataStack: ICoreDataStack {
     // MARK: - Dependency
     
     private let resourseName: String
+    private let storeType: String
     
     // MARK: - Initializer
     
-    init(resourseName: String) {
+    init(resourseName: String, storeType: PersistanceStoreType) {
         self.resourseName = resourseName
+        switch storeType {
+        case .binary:
+            self.storeType = NSBinaryStoreType
+        case .inMemory:
+            self.storeType = NSInMemoryStoreType
+        case .sqlite:
+            self.storeType = NSSQLiteStoreType
+        }
     }
     
     // MARK: - Model
@@ -47,7 +56,7 @@ class CoreDataStack: ICoreDataStack {
         do {
             let options = [NSMigratePersistentStoresAutomaticallyOption: true,
                            NSInferMappingModelAutomaticallyOption: true]
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+            try coordinator.addPersistentStore(ofType: storeType,
                                                configurationName: nil,
                                                at: storeUrl,
                                                options: options)
@@ -88,4 +97,8 @@ class CoreDataStack: ICoreDataStack {
         return saveContext
     }()
     
+}
+
+enum PersistanceStoreType {
+    case binary, inMemory, sqlite
 }
