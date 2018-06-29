@@ -9,7 +9,7 @@
 protocol IServicesAssembly {
     var feedService: IFeedService { get }
     var postService: IPostService { get }
-    var storageService: IFeedService & IStorageService { get }
+    var storageService: IFeedService & IPostService & IStorageService { get }
 }
 
 class ServicesAssembly: IServicesAssembly {
@@ -30,6 +30,6 @@ class ServicesAssembly: IServicesAssembly {
     
     lazy var feedService: IFeedService = newsService
     lazy var postService: IPostService = newsService
-    lazy var storageService: IFeedService & IStorageService = StorageService(storageManager: coreAssembly.storageManager)
+    lazy var storageService: IFeedService & IPostService & IStorageService = StorageService(storageManager: coreAssembly.storageManager)
     
 }

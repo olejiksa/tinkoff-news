@@ -26,15 +26,12 @@ struct FeedItem: Codable {
     }
 }
 
-extension FeedItem: IReverseMappable {
-    typealias T1 = FeedItem
-    typealias T2 = News
-    
-    static func map(from model: T1, to entity: T2) {
-        entity.id = model.id
-        entity.name = model.text
-        entity.viewsCount = Int16(model.viewsCount)
-        entity.date = Date.create(from: model.publicationDate.milliseconds)
+extension FeedItem: IMappable {
+    func map(to entity: News) {
+        entity.id = id
+        entity.name = text
+        entity.viewsCount = Int16(viewsCount)
+        entity.date = Date.create(from: publicationDate.milliseconds)
     }
 }
 

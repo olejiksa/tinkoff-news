@@ -17,7 +17,7 @@ protocol IFeedModel {
 
 class FeedModel: IFeedModel {
     
-    // MARK: - Dependency
+    // MARK: - Dependencies
     
     private let feedService: IFeedService
     private let storageService: IFeedService & IStorageService

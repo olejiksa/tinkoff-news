@@ -7,5 +7,19 @@
 //
 
 struct PostItem: Codable {
+    let title: Title
     let content: String
+}
+
+extension PostItem: IMappable {
+    typealias T = News
+    
+    func map(to entity: T) {
+        entity.id = title.id
+        entity.content = content
+    }
+}
+
+struct Title: Codable {
+    let id: String
 }

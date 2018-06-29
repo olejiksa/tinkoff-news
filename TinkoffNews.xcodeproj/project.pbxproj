@@ -15,7 +15,6 @@
 		EB2B53E020E3A730001B387C /* FeedMergePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53DF20E3A730001B387C /* FeedMergePolicy.swift */; };
 		EB2B53E220E3A756001B387C /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53E120E3A756001B387C /* PostItem.swift */; };
 		EB2B53E420E3AA25001B387C /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53E320E3AA25001B387C /* News.swift */; };
-		EB2B53E620E3AA3C001B387C /* IMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53E520E3AA3C001B387C /* IMappable.swift */; };
 		EB40F1CD20E14049004216E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F1CC20E14049004216E2 /* AppDelegate.swift */; };
 		EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB40F1D320E14049004216E2 /* TinkoffNews.xcdatamodeld */; };
 		EB40F1D720E1404B004216E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB40F1D620E1404B004216E2 /* Assets.xcassets */; };
@@ -39,7 +38,7 @@
 		EB40F21520E24540004216E2 /* NewsPostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F21420E24540004216E2 /* NewsPostRequest.swift */; };
 		EB40F21720E245FC004216E2 /* NewsPostParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F21620E245FC004216E2 /* NewsPostParser.swift */; };
 		EB504CAD20E4047D0065DBED /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CAC20E4047D0065DBED /* StorageService.swift */; };
-		EB504CB320E478B20065DBED /* IReverseMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CB220E478B20065DBED /* IReverseMappable.swift */; };
+		EB504CB320E478B20065DBED /* IMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CB220E478B20065DBED /* IMappable.swift */; };
 		EB504CBC20E531310065DBED /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CBB20E531310065DBED /* NewsCell.swift */; };
 		EB504CBE20E5324E0065DBED /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CBD20E5324E0065DBED /* NewsCell.xib */; };
 		EB504CC320E54E410065DBED /* LoadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB504CC220E54E410065DBED /* LoadCell.xib */; };
@@ -57,7 +56,6 @@
 		EB2B53DF20E3A730001B387C /* FeedMergePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMergePolicy.swift; sourceTree = "<group>"; };
 		EB2B53E120E3A756001B387C /* PostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItem.swift; sourceTree = "<group>"; };
 		EB2B53E320E3AA25001B387C /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		EB2B53E520E3AA3C001B387C /* IMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMappable.swift; sourceTree = "<group>"; };
 		EB40F1C920E14049004216E2 /* TinkoffNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB40F1CC20E14049004216E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB40F1D420E14049004216E2 /* TinkoffNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TinkoffNews.xcdatamodel; sourceTree = "<group>"; };
@@ -83,7 +81,7 @@
 		EB40F21420E24540004216E2 /* NewsPostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostRequest.swift; sourceTree = "<group>"; };
 		EB40F21620E245FC004216E2 /* NewsPostParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostParser.swift; sourceTree = "<group>"; };
 		EB504CAC20E4047D0065DBED /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		EB504CB220E478B20065DBED /* IReverseMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IReverseMappable.swift; sourceTree = "<group>"; };
+		EB504CB220E478B20065DBED /* IMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMappable.swift; sourceTree = "<group>"; };
 		EB504CBB20E531310065DBED /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		EB504CBD20E5324E0065DBED /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 		EB504CC220E54E410065DBED /* LoadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadCell.xib; sourceTree = "<group>"; };
@@ -106,8 +104,7 @@
 		EB2B53D820E3A34E001B387C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				EB2B53E520E3AA3C001B387C /* IMappable.swift */,
-				EB504CB220E478B20065DBED /* IReverseMappable.swift */,
+				EB504CB220E478B20065DBED /* IMappable.swift */,
 				EB2B53D920E3A384001B387C /* CoreDataStack.swift */,
 				EB2B53DB20E3A5CB001B387C /* StorageManager.swift */,
 				EB2B53E320E3AA25001B387C /* News.swift */,
@@ -413,10 +410,9 @@
 				EB40F21120E17B72004216E2 /* PostModel.swift in Sources */,
 				EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */,
 				EB504CC920E556B40065DBED /* String+HTML.swift in Sources */,
-				EB2B53E620E3AA3C001B387C /* IMappable.swift in Sources */,
 				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,
 				EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */,
-				EB504CB320E478B20065DBED /* IReverseMappable.swift in Sources */,
+				EB504CB320E478B20065DBED /* IMappable.swift in Sources */,
 				EB2B53E020E3A730001B387C /* FeedMergePolicy.swift in Sources */,
 				EB40F1ED20E145D0004216E2 /* ServicesAssembly.swift in Sources */,
 				EB40F1E620E144B6004216E2 /* RootAssembly.swift in Sources */,

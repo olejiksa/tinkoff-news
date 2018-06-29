@@ -13,9 +13,7 @@ struct NewsFeedResponse: Codable {
 }
 
 class NewsFeedParser: IParser {
-    typealias Model = [FeedItem]
-    
-    func parse(data: Data) -> Model? {
+    func parse(data: Data) -> [FeedItem]? {
         do {
             return try JSONDecoder().decode(NewsFeedResponse.self, from: data).payload
         } catch  {

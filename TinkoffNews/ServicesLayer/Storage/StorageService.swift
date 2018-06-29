@@ -13,9 +13,10 @@ protocol IStorageService {
     
     func saveFeedItem(_ model: FeedItem, completion: @escaping ((String?) -> ()))
     func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ()))
+    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ())
 }
 
-class StorageService: IFeedService, IStorageService {
+class StorageService: IFeedService, IPostService, IStorageService {
     
     // MARK: - Dependency
     
@@ -31,6 +32,12 @@ class StorageService: IFeedService, IStorageService {
     
     func getNewsFeed(page: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
         storageManager.fetchNewsFeed(offset: (page - 1) * 20, completion: completion)
+    }
+    
+    // MARK: - IPostService
+    
+    func getNewsPost(id: String, completion: @escaping (PostItem?, String?) -> ()) {
+        storageManager.fetchNewsPost(id: id, completion: completion)
     }
     
     // MARK: - IStorageService
@@ -51,4 +58,8 @@ class StorageService: IFeedService, IStorageService {
         storageManager.saveNewsFeed(newsFeed, completion: completion)
     }
     
+    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ()) {
+        storageManager.saveNewsPost(post, completion: completion)
+    }
+
 }

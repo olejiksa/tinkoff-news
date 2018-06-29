@@ -34,7 +34,9 @@ class PresentationAssembly: IPresentationAssembly {
     // MARK: - PostViewController
     
     func postViewController(newsItem: FeedItem) -> PostViewController {
-        let postModel: IPostModel = PostModel(newsItem: newsItem, postService: servicesAssembly.postService)
+        let postModel: IPostModel = PostModel(newsItem: newsItem,
+                                              postService: servicesAssembly.postService,
+                                              storageService: servicesAssembly.storageService)
         return PostViewController(model: postModel)
     }
     

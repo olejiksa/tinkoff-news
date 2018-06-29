@@ -13,8 +13,11 @@ protocol IStorageManager {
     
     func fetchViewCounts(offset: Int, completion: @escaping ([String: Int]?, String?) -> ())
     func fetchNewsFeed(offset: Int, completion: @escaping ([FeedItem]?, String?) -> ())
+    func fetchNewsPost(id: String, completion: @escaping (PostItem?, String?) -> ())
+    
     func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ())
     func saveItem(_ item: FeedItem, completion: @escaping (String?) -> ())
+    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ())
 }
 
 class StorageManager: IStorageManager {
@@ -37,6 +40,7 @@ class StorageManager: IStorageManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
         fetchRequest.fetchLimit = 20
         fetchRequest.fetchOffset = offset
+        fetchRequest.resultType = .countResultType
         
         do {
             result = try coreDataStack.mainContext.count(for: fetchRequest) == 0
@@ -48,19 +52,19 @@ class StorageManager: IStorageManager {
     }
     
     func fetchViewCounts(offset: Int, completion: @escaping ([String: Int]?, String?) -> ()) {
+        var newsFeed = [String: Int]()
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
+        fetchRequest.fetchLimit = 20
+        fetchRequest.fetchOffset = offset
+        fetchRequest.propertiesToFetch = ["id", "viewsCount"]
+        fetchRequest.resultType = .dictionaryResultType
+        
         coreDataStack.mainContext.perform {
-            var newsFeed = [String: Int]()
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
-            fetchRequest.fetchLimit = 20
-            fetchRequest.fetchOffset = offset
-            fetchRequest.propertiesToFetch = ["id", "viewsCount"]
-            fetchRequest.resultType = .dictionaryResultType
-            
             do {
                 let result = try self.coreDataStack.mainContext.fetch(fetchRequest) as? [[String: Any]]
                 guard let dictionary = result else {
-                    completion(nil, "Cannot cast fetch request result to dictionary")
+                    completion(nil, "Cannot cast fetch request result to dictionaries")
                     return
                 }
                 
@@ -80,29 +84,70 @@ class StorageManager: IStorageManager {
     }
     
     func fetchNewsFeed(offset: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
+        var newsFeed = [FeedItem]()
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
+        fetchRequest.fetchLimit = 20
+        fetchRequest.fetchOffset = offset
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.propertiesToFetch = ["id", "name", "date", "viewsCount"]
+        fetchRequest.resultType = .dictionaryResultType
+        
         coreDataStack.mainContext.perform {
-            var newsFeed = [News]()
-            
-            let fetchRequest = NSFetchRequest<News>(entityName: "\(News.self)")
-            fetchRequest.fetchLimit = 20
-            fetchRequest.fetchOffset = offset
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            
             do {
-                newsFeed = try self.coreDataStack.mainContext.fetch(fetchRequest)
+                let result = try self.coreDataStack.mainContext.fetch(fetchRequest) as? [[String: Any]]
+                guard let dictionary = result else {
+                    completion(nil, "Cannot cast fetch request result to dictionaries")
+                    return
+                }
+                
+                for item in dictionary {
+                    let id = item["id"] as! String
+                    let name = item["name"] as! String
+                    let date = item["date"] as! Date
+                    let viewsCount = item["viewsCount"] as! Int
+                    
+                    newsFeed.append(FeedItem(id: id, text: name, publicationDate: PublicationDate(milliseconds: date.milliseconds()), viewsCount: viewsCount))
+                }
             } catch {
                 completion(nil, error.localizedDescription)
                 return
             }
             
-            var models = [FeedItem]()
-            for cachedNews in newsFeed {
-                if let model = News.map(from: cachedNews) {
-                    models.append(model)
+            completion(newsFeed, nil)
+        }
+    }
+    
+    func fetchNewsPost(id: String, completion: @escaping (PostItem?, String?) -> ()) {
+        var post: PostItem?
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(News.self)")
+        fetchRequest.propertiesToFetch = ["id", "content"]
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        fetchRequest.resultType = .dictionaryResultType
+        
+        coreDataStack.mainContext.perform {
+            do {
+                let result = try self.coreDataStack.mainContext.fetch(fetchRequest).first as? [String: Any]
+                guard let item = result else {
+                    completion(nil, "Cannot cast fetch request result to dictionary")
+                    return
                 }
+                
+                let title = Title(id: item["id"] as! String)
+                
+                guard let content = item["content"] as? String else {
+                    completion(nil, "No cached content for this post")
+                    return
+                }
+                    
+                post = PostItem(title: title, content: content)
+            } catch {
+                completion(nil, error.localizedDescription)
+                return
             }
             
-            completion(models, nil)
+            completion(post, nil)
         }
     }
     
@@ -119,7 +164,13 @@ class StorageManager: IStorageManager {
     func saveItem(_ model: FeedItem, completion: @escaping (String?) -> ()) {
         coreDataStack.saveContext.perform {
             News.findOrInsert(model, in: self.coreDataStack.saveContext)
-            
+            self.performSave(in: self.coreDataStack.saveContext, completion: completion)
+        }
+    }
+    
+    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ()) {
+        coreDataStack.saveContext.perform {
+            News.findOrInsert(post, in: self.coreDataStack.saveContext)
             self.performSave(in: self.coreDataStack.saveContext, completion: completion)
         }
     }

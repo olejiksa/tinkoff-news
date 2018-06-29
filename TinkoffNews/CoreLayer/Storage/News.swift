@@ -8,29 +8,26 @@
 
 import CoreData
 
-extension News: IMappable {
-    
-    typealias T1 = News
-    typealias T2 = FeedItem
-    
-    @nonobjc static func map(from managedObject: T1) -> T2? {
-        guard let id = managedObject.id,
-              let name = managedObject.name,
-              let date = managedObject.date else { return nil }
-        
-        return T2(id: id,
-                  text: name,
-                  publicationDate: PublicationDate(milliseconds: date.milliseconds()),
-                  viewsCount: Int(managedObject.viewsCount))
-    }
+extension News {
     
     @nonobjc static func findOrInsert(_ model: FeedItem, in context: NSManagedObjectContext) {
         if let cachedNews = News.find(by: model.id, in: context) {
-            FeedItem.map(from: model, to: cachedNews)
+            model.map(to: cachedNews)
         } else {
             if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
                let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
-                FeedItem.map(from: model, to: cachedNews)
+                model.map(to: cachedNews)
+            }
+        }
+    }
+    
+    @nonobjc static func findOrInsert(_ model: PostItem, in context: NSManagedObjectContext) {
+        if let cachedPost = News.find(by: model.title.id, in: context) {
+            model.map(to: cachedPost)
+        } else {
+            if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
+                let cachedPost = NSManagedObject(entity: entity, insertInto: context) as? News {
+                model.map(to: cachedPost)
             }
         }
     }
@@ -48,13 +45,6 @@ extension News: IMappable {
         }
         
         return nil
-    }
-    
-    @nonobjc private static func insert(model: FeedItem, in context: NSManagedObjectContext) {
-        if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
-           let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
-            FeedItem.map(from: model, to: cachedNews)
-        }
     }
     
 }

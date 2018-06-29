@@ -25,7 +25,7 @@ class FeedViewController: UIViewController {
         return refresher
     }()
     
-    // MARK: - Dependency
+    // MARK: - Dependencies
     
     private var model: IFeedModel
     private let presentationAssembly: IPresentationAssembly

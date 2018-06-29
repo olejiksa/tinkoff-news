@@ -47,7 +47,7 @@ class PostViewController: UIViewController {
     // MARK: - Private methods
     
     private func configureData() {
-        model.getNewsPost(id: model.postId) { [weak self] (attributedText, error) in
+        model.getNewsPost(useCache: false) { [weak self] (attributedText, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self?.showMessage(for: error)
@@ -56,6 +56,11 @@ class PostViewController: UIViewController {
                 } else {
                     self?.postTextLabel.attributedText = attributedText
                     self?.postTextLabel.textColor = .black
+                    self?.model.saveNewsPost() { [weak self] error in
+                        if let error = error {
+                            self?.showMessage(for: error)
+                        }
+                    }
                 }
                 
                 self?.spinner.stopAnimating()
