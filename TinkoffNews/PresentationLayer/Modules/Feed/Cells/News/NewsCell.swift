@@ -28,7 +28,7 @@ class NewsCell: UITableViewCell {
             }
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE, dd MMM yyyy, hh:mm"
+            dateFormatter.dateFormat = "EEE, d MMM yyyy, h:mm"
             
             dateLabel.text = dateFormatter.string(from: date)
         }

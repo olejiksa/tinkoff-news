@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct FeedItem: Codable {
     let id: String
@@ -27,11 +28,11 @@ struct FeedItem: Codable {
 }
 
 extension FeedItem: IMappable {
-    func map(to entity: News) {
-        entity.id = id
-        entity.name = text
-        entity.viewsCount = Int16(viewsCount)
-        entity.date = Date.create(from: publicationDate.milliseconds)
+    func map(to entity: NSManagedObject) {
+        entity.setValue(id, forKey: "id")
+        entity.setValue(text, forKey: "name")
+        entity.setValue(Int16(viewsCount), forKey: "viewsCount")
+        entity.setValue(Date.create(from: publicationDate.milliseconds), forKey: "date")
     }
 }
 

@@ -6,17 +6,21 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import CoreData
+
 struct PostItem: Codable {
     let title: Title
     let content: String
 }
 
 extension PostItem: IMappable {
-    typealias T = News
+    var id: String {
+        return title.id
+    }
     
-    func map(to entity: T) {
-        entity.id = title.id
-        entity.content = content
+    func map(to entity: NSManagedObject) {
+        entity.setValue(id, forKey: "id")
+        entity.setValue(content, forKey: "content")
     }
 }
 

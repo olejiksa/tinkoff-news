@@ -59,7 +59,7 @@ class StorageService: IFeedService, IPostService, IStorageService {
     }
     
     func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ()) {
-        storageManager.saveNewsPost(post, completion: completion)
+        storageManager.saveItem(post, completion: completion)
     }
 
 }

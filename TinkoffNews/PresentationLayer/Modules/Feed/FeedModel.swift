@@ -43,12 +43,10 @@ class FeedModel: IFeedModel {
         if manually {
             useCache = false
             service = feedService
+        } else if !useCache || storageService.isEmpty(for: page)  {
+            service = feedService
         } else {
-            if !useCache {
-                service = feedService
-            } else {
-                service = storageService.isEmpty(for: page) ? feedService : storageService
-            }
+            service = storageService
         }
         
         service.getNewsFeed(page: page) { [unowned self] newsItems, error in
@@ -114,7 +112,7 @@ class FeedModel: IFeedModel {
         }
         
         /* Возвращаются новости, ошибка (если есть) и флаг необходимости сохранения
-         Уже закэшированные новости не подлежат повторному добавлению в кэш */
+           Уже закэшированные новости не подлежат повторному добавлению в кэш */
         completion(newsItems, nil, !(service is IStorageService))
     }
     

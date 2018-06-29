@@ -10,24 +10,13 @@ import CoreData
 
 extension News {
     
-    @nonobjc static func findOrInsert(_ model: FeedItem, in context: NSManagedObjectContext) {
+    @nonobjc static func findOrInsert(_ model: IMappable, in context: NSManagedObjectContext) {
         if let cachedNews = News.find(by: model.id, in: context) {
             model.map(to: cachedNews)
         } else {
             if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
                let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
                 model.map(to: cachedNews)
-            }
-        }
-    }
-    
-    @nonobjc static func findOrInsert(_ model: PostItem, in context: NSManagedObjectContext) {
-        if let cachedPost = News.find(by: model.title.id, in: context) {
-            model.map(to: cachedPost)
-        } else {
-            if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
-                let cachedPost = NSManagedObject(entity: entity, insertInto: context) as? News {
-                model.map(to: cachedPost)
             }
         }
     }

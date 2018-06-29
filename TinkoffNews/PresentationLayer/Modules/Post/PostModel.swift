@@ -46,7 +46,7 @@ class PostModel: IPostModel {
         let date = Date(timeIntervalSince1970: TimeInterval(time / 1000))
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
+        dateFormatter.dateFormat = "d MMM yyyy"
         
         return dateFormatter.string(from: date)
     }
@@ -59,6 +59,7 @@ class PostModel: IPostModel {
         service.getNewsPost(id: newsItem.id) { postItem, error in
             guard let post = postItem else {
                 if !useCache {
+                    // При неудаче получить текст новости из сети
                     self.getNewsPost(useCache: true, completion: completion)
                     return
                 }
@@ -79,6 +80,7 @@ class PostModel: IPostModel {
             let attributes = [NSAttributedStringKey.font: font]
             let attributedText = NSMutableAttributedString(string: htmlText.string, attributes: attributes)
             
+            // Возвращается в случае успеха очищенный от HTML-тегов текст
             completion(attributedText, nil)
         }
     }

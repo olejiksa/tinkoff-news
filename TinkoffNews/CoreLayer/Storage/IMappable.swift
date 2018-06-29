@@ -9,6 +9,6 @@
 import CoreData
 
 protocol IMappable {
-    associatedtype T where T: NSManagedObject
-    func map(to entity: T)
+    var id: String { get }
+    func map(to entity: NSManagedObject)
 }

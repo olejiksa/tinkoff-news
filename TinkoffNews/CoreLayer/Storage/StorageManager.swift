@@ -16,8 +16,7 @@ protocol IStorageManager {
     func fetchNewsPost(id: String, completion: @escaping (PostItem?, String?) -> ())
     
     func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping (String?) -> ())
-    func saveItem(_ item: FeedItem, completion: @escaping (String?) -> ())
-    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ())
+    func saveItem(_ item: IMappable, completion: @escaping (String?) -> ())
 }
 
 class StorageManager: IStorageManager {
@@ -161,16 +160,9 @@ class StorageManager: IStorageManager {
         }
     }
     
-    func saveItem(_ model: FeedItem, completion: @escaping (String?) -> ()) {
+    func saveItem(_ model: IMappable, completion: @escaping (String?) -> ()) {
         coreDataStack.saveContext.perform {
             News.findOrInsert(model, in: self.coreDataStack.saveContext)
-            self.performSave(in: self.coreDataStack.saveContext, completion: completion)
-        }
-    }
-    
-    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ()) {
-        coreDataStack.saveContext.perform {
-            News.findOrInsert(post, in: self.coreDataStack.saveContext)
             self.performSave(in: self.coreDataStack.saveContext, completion: completion)
         }
     }
