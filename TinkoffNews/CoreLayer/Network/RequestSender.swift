@@ -2,7 +2,7 @@
 //  RequestSender.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -23,7 +23,7 @@ class RequestSender: IRequestSender {
     
     func send<Parser>(config: RequestConfig<Parser>, completionHandler: @escaping (Result<Parser.Model>) -> ()) where Parser: IParser {
         guard let urlRequest = config.request.urlRequest else {
-            completionHandler(.error("URL string cannot be parsed to URL"))
+            completionHandler(.error("URL string cannot be parsed to URL."))
             return
         }
         
@@ -34,7 +34,7 @@ class RequestSender: IRequestSender {
             }
             
             guard let data = data, let parsedModel: Parser.Model = config.parser.parse(data: data) else {
-                completionHandler(.error("Received data cannot be parsed"))
+                completionHandler(.error("Received data cannot be parsed."))
                 return
             }
             

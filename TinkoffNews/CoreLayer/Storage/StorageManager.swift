@@ -2,7 +2,7 @@
 //  StorageManager.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 27/06/2018.
+//  Created by Oleg Samoylov on 27/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -63,7 +63,7 @@ class StorageManager: IStorageManager {
             do {
                 let result = try self.coreDataStack.mainContext.fetch(fetchRequest) as? [[String: Any]]
                 guard let dictionary = result else {
-                    completion(nil, "Cannot cast fetch request result to dictionaries")
+                    completion(nil, "Cannot cast fetch request result to dictionaries.")
                     return
                 }
                 
@@ -96,7 +96,7 @@ class StorageManager: IStorageManager {
             do {
                 let result = try self.coreDataStack.mainContext.fetch(fetchRequest) as? [[String: Any]]
                 guard let dictionary = result else {
-                    completion(nil, "Cannot cast fetch request result to dictionaries")
+                    completion(nil, "Cannot cast fetch request result to dictionaries.")
                     return
                 }
                 
@@ -129,14 +129,14 @@ class StorageManager: IStorageManager {
             do {
                 let result = try self.coreDataStack.mainContext.fetch(fetchRequest).first as? [String: Any]
                 guard let item = result else {
-                    completion(nil, "Cannot cast fetch request result to dictionary")
+                    completion(nil, "Cannot cast fetch request result to dictionary.")
                     return
                 }
                 
                 let title = Title(id: item["id"] as! String)
                 
                 guard let content = item["content"] as? String else {
-                    completion(nil, "No cached content for this post")
+                    completion(nil, "No cached content for this post.")
                     return
                 }
                     

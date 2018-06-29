@@ -2,7 +2,7 @@
 //  StorageService.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 27/06/2018.
+//  Created by Oleg Samoylov on 27/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -11,9 +11,9 @@ protocol IStorageService {
     
     func isEmpty(for page: Int) -> Bool
     
-    func saveFeedItem(_ model: FeedItem, completion: @escaping ((String?) -> ()))
-    func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ()))
-    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ())
+    func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ()))
+    func saveNewsFeedItem(_ newsFeedItem: FeedItem, completion: @escaping ((String?) -> ()))
+    func saveNewsPost(_ newsPost: PostItem, completion: @escaping (String?) -> ())
 }
 
 class StorageService: IFeedService, IPostService, IStorageService {
@@ -31,7 +31,7 @@ class StorageService: IFeedService, IPostService, IStorageService {
     // MARK: - IFeedService
     
     func getNewsFeed(page: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
-        storageManager.fetchNewsFeed(offset: (page - 1) * 20, completion: completion)
+        storageManager.fetchNewsFeed(offset: calculateOffset(from: page), completion: completion)
     }
     
     // MARK: - IPostService
@@ -43,23 +43,29 @@ class StorageService: IFeedService, IPostService, IStorageService {
     // MARK: - IStorageService
     
     func getViewsCounts(page: Int, completion: @escaping ([String: Int]?, String?) -> ()) {
-        storageManager.fetchViewCounts(offset: (page - 1) * 20, completion: completion)
+        storageManager.fetchViewCounts(offset: calculateOffset(from: page), completion: completion)
     }
     
     func isEmpty(for page: Int) -> Bool {
-        return storageManager.isEmpty(offset: (page - 1) * 20)
+        return storageManager.isEmpty(offset: calculateOffset(from: page))
     }
     
-    func saveFeedItem(_ model: FeedItem, completion: @escaping ((String?) -> ())) {
-        storageManager.saveItem(model, completion: completion)
+    func saveNewsFeedItem(_ newsFeedItem: FeedItem, completion: @escaping ((String?) -> ())) {
+        storageManager.saveItem(newsFeedItem, completion: completion)
     }
     
-    func saveNews(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ())) {
+    func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ())) {
         storageManager.saveNewsFeed(newsFeed, completion: completion)
     }
     
-    func saveNewsPost(_ post: PostItem, completion: @escaping (String?) -> ()) {
-        storageManager.saveItem(post, completion: completion)
+    func saveNewsPost(_ newsPost: PostItem, completion: @escaping (String?) -> ()) {
+        storageManager.saveItem(newsPost, completion: completion)
+    }
+    
+    // MARK: - Private methods
+    
+    private func calculateOffset(from page: Int) -> Int {
+        return (page - 1) * 20
     }
 
 }

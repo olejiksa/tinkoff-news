@@ -2,7 +2,7 @@
 //  NewsService.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -21,7 +21,8 @@ class NewsService: IFeedService, IPostService {
     // MARK: - IFeedService
     
     func getNewsFeed(page: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
-        let requestConfig = RequestFactory.getNewsFeed(first: 20 * (page - 1), last: 20 * page)
+        let requestConfig = RequestFactory.getNewsFeed(first: calculateOffset(from: page),
+                                                       last: 20 * page)
         
         requestSender.send(config: requestConfig) { (result: Result<[FeedItem]>) in
             switch result {
@@ -46,6 +47,12 @@ class NewsService: IFeedService, IPostService {
                 completion(nil, error)
             }
         }
+    }
+    
+    // MARK: - Private methods
+    
+    private func calculateOffset(from page: Int) -> Int {
+        return (page - 1) * 20
     }
     
 }

@@ -2,7 +2,7 @@
 //  NewsPostParser.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 26/06/2018.
+//  Created by Oleg Samoylov on 26/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 

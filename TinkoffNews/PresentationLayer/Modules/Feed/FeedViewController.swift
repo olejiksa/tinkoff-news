@@ -2,7 +2,7 @@
 //  FeedViewController.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -72,7 +72,7 @@ class FeedViewController: UIViewController {
                 } else {
                     self?.tableView.reloadData()
                     if save {
-                        self?.model.saveNews() { [weak self] error in
+                        self?.model.saveNewsFeed() { [weak self] error in
                             if let error = error {
                                 self?.showMessage(for: error)
                             }
@@ -178,7 +178,7 @@ extension FeedViewController: UITableViewDelegate {
         model.data[indexPath.row].viewsCount += 1
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
-        model.saveFeedItem(index: indexPath.row) { [weak self] error in
+        model.saveNewsFeedItem(by: indexPath.row) { [weak self] error in
             if let error = error {
                 self?.showMessage(for: error)
             }

@@ -2,7 +2,7 @@
 //  Date+Milliseconds.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 28/06/2018.
+//  Created by Oleg Samoylov on 28/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 

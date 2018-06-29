@@ -2,7 +2,7 @@
 //  News.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 27/06/2018.
+//  Created by Oleg Samoylov on 27/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -14,10 +14,7 @@ extension News {
         if let cachedNews = News.find(by: model.id, in: context) {
             model.map(to: cachedNews)
         } else {
-            if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
-               let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
-                model.map(to: cachedNews)
-            }
+            insert(model, in: context)
         }
     }
     
@@ -34,6 +31,13 @@ extension News {
         }
         
         return nil
+    }
+    
+    @nonobjc private static func insert(_ model: IMappable, in context: NSManagedObjectContext) {
+        if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
+           let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
+            model.map(to: cachedNews)
+        }
     }
     
 }

@@ -2,7 +2,7 @@
 //  FeedModel.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -11,8 +11,8 @@ protocol IFeedModel {
     
     func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
                      manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
-    func saveFeedItem(index: Int, completion: @escaping ((String?) -> ()))
-    func saveNews(completion: @escaping ((String?) -> ()))
+    func saveNewsFeed(completion: @escaping ((String?) -> ()))
+    func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ()))
 }
 
 class FeedModel: IFeedModel {
@@ -90,12 +90,12 @@ class FeedModel: IFeedModel {
         }
     }
     
-    func saveFeedItem(index: Int, completion: @escaping ((String?) -> ())) {
-        storageService.saveFeedItem(data[index], completion: completion)
+    func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ())) {
+        storageService.saveNewsFeedItem(data[index], completion: completion)
     }
     
-    func saveNews(completion: @escaping ((String?) -> ())) {
-        storageService.saveNews(data, completion: completion)
+    func saveNewsFeed(completion: @escaping ((String?) -> ())) {
+        storageService.saveNewsFeed(data, completion: completion)
     }
     
     // MARK: - Private methods

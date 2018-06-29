@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  CoreDataStack.swift
 //  TinkoffChat
 //
-//  Created by Олег Самойлов on 27/06/2018.
+//  Created by Oleg Samoylov on 27/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -17,10 +17,20 @@ protocol ICoreDataStack {
 
 class CoreDataStack: ICoreDataStack {
     
+    // MARK: - Dependency
+    
+    private let resourseName: String
+    
+    // MARK: - Initializer
+    
+    init(resourseName: String) {
+        self.resourseName = resourseName
+    }
+    
     // MARK: - Model
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = Bundle.main.url(forResource: "TinkoffNews", withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: resourseName, withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
@@ -28,7 +38,7 @@ class CoreDataStack: ICoreDataStack {
     
     private var storeUrl: URL {
         let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return documentUrl.appendingPathComponent("TinkoffNews.sqlite")
+        return documentUrl.appendingPathComponent("\(resourseName).sqlite")
     }
     
     lazy private var persistanceStoreCoordinator: NSPersistentStoreCoordinator = {

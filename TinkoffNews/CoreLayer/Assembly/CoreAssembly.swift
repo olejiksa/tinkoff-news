@@ -2,7 +2,7 @@
 //  CoreAssembly.swift
 //  TinkoffNews
 //
-//  Created by Олег Самойлов on 25/06/2018.
+//  Created by Oleg Samoylov on 25/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ protocol ICoreAssembly {
 }
 
 class CoreAssembly: ICoreAssembly {
-    private lazy var coreDataStack: ICoreDataStack = CoreDataStack()
+    private lazy var coreDataStack: ICoreDataStack = CoreDataStack(resourseName: "TinkoffNews")
     
     lazy var requestSender: IRequestSender = RequestSender()
     lazy var storageManager: IStorageManager = StorageManager(coreDataStack: coreDataStack)
