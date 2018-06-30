@@ -50,16 +50,16 @@ class PostViewController: UIViewController {
     // MARK: - Private methods
     
     private func configureData() {
-        model.getNewsPost(usingCache: false) { [weak self] (attributedText, error) in
+        model.getNewsPost(usingCache: false) { [weak self] (postItem, attributedText, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self?.logger.logMessage(for: error)
                     self?.postTextLabel.text = "No data available, try to open later"
                     self?.postTextLabel.textColor = .darkGray
-                } else {
+                } else if let postItem = postItem {
                     self?.postTextLabel.attributedText = attributedText
                     self?.postTextLabel.textColor = .black
-                    self?.model.saveNewsPost() { [weak self] error in
+                    self?.model.saveNewsPost(postItem) { [weak self] error in
                         if let error = error {
                             self?.logger.logMessage(for: error)
                         }
@@ -74,9 +74,9 @@ class PostViewController: UIViewController {
     private func configureUI() {
         logger.delegate = self
         
-        titleLabel.text = model.postTitle
+        titleLabel.text = model.postHeader.title
         
-        navigationItem.title = model.postDate
+        navigationItem.title = model.postHeader.date
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
     }

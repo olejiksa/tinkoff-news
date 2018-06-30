@@ -9,13 +9,10 @@
 import UIKit
 
 protocol IPostModel {
-    var postTitle: String { get }
-    var postDate: String { get }
+    var postHeader: (title: String, date: String) { get }
     
-    var postItem: PostItem? { get set }
-    
-    func getNewsPost(usingCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ())
-    func saveNewsPost(completion: @escaping ((String?) -> ()))
+    func getNewsPost(usingCache: Bool, completion: @escaping (PostItem?, NSAttributedString?, String?) -> ())
+    func saveNewsPost(_ newsPost: PostItem, completion: @escaping ((String?) -> ()))
 }
 
 class PostModel: IPostModel {
@@ -36,24 +33,19 @@ class PostModel: IPostModel {
     
     // MARK: - IPostModel
     
-    var postTitle: String {
-        guard let title = newsItem.title else { return String() }
-        return title
-    }
-    
-    var postDate: String {
-        let time = newsItem.publicationDate.milliseconds
-        let date = Date(timeIntervalSince1970: TimeInterval(time / 1000))
+    var postHeader: (title: String, date: String) {
+        let timeInMilliseconds = newsItem.publicationDate.milliseconds
+        let postDate = Date(timeIntervalSince1970: TimeInterval(timeInMilliseconds / 1000))
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMM yyyy"
+        let postDateString = dateFormatter.string(from: postDate)
         
-        return dateFormatter.string(from: date)
+        guard let postTitle = newsItem.title else { return (String(), postDateString) }
+        return (postTitle, dateFormatter.string(from: postDate))
     }
     
-    var postItem: PostItem?
-    
-    func getNewsPost(usingCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ()) {
+    func getNewsPost(usingCache: Bool, completion: @escaping (PostItem?, NSAttributedString?, String?) -> ()) {
         let service = usingCache ? storageService : postService
         
         service.getNewsPost(id: newsItem.id) { [weak self] postItem, error in
@@ -63,13 +55,12 @@ class PostModel: IPostModel {
                     return
                 }
                 
-                completion(nil, error)
+                completion(nil, nil, error)
                 return
             }
             
-            self?.postItem = postItem
             guard let parsedString = String(htmlEncodedString: post.content) else {
-                completion(nil, "HTML cannot be parsed into NSAttributedString.")
+                completion(postItem, nil, "HTML cannot be parsed into NSAttributedString.")
                 return
             }
             
@@ -77,13 +68,12 @@ class PostModel: IPostModel {
             let attributes = [NSAttributedStringKey.font: font]
             let attributedText = NSMutableAttributedString(string: parsedString, attributes: attributes)
             
-            completion(attributedText, nil)
+            completion(postItem, attributedText, nil)
         }
     }
     
-    func saveNewsPost(completion: @escaping ((String?) -> ())) {
-        guard let post = postItem else { return }
-        storageService.saveNewsPost(post, completion: completion)
+    func saveNewsPost(_ newsPost: PostItem, completion: @escaping ((String?) -> ())) {
+        storageService.saveNewsPost(newsPost, completion: completion)
     }
     
 }
