@@ -12,7 +12,7 @@ import XCTest
 class StorageTests: XCTestCase {
     
     /// Service layer object to test
-    private var storageService: IStorageService!
+    private var storageService: IComplexStorageService!
     
     // MARK: - Setting up of test environment
     
@@ -71,7 +71,39 @@ class StorageTests: XCTestCase {
     }
     
     func testThat_newsContentCanBeSaved() {
+        let isSavedFeedItem = expectation(description: "isSavedFeedItem")
+        let isSavedPostItem = expectation(description: "isSavedPostItem")
+        let isLoaded = expectation(description: "Loaded")
+        let expectedContent = "This is definitely the new World..."
         
+        var newsFeedItem: FeedItem!
+        var newsPost: PostItem!
+        
+        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!", publicationDate: PublicationDate(milliseconds: Date().milliseconds()), viewsCount: 0)
+        newsPost = PostItem(title: Title(id: newsFeedItem.id), content: expectedContent)
+        
+        storageService.saveNewsFeedItem(newsFeedItem) { error in
+            XCTAssertNil(error)
+            isSavedFeedItem.fulfill()
+        }
+        
+        wait(for: [isSavedFeedItem], timeout: 3)
+        
+        storageService.saveNewsPost(newsPost) { error in
+            XCTAssertNil(error)
+            isSavedPostItem.fulfill()
+        }
+        
+        wait(for: [isSavedPostItem], timeout: 3)
+        
+        storageService.getNewsPost(id: "\(1)") { post, error in
+            XCTAssertNil(error)
+            XCTAssertEqual(post?.content, expectedContent)
+            XCTAssertEqual(post?.title.id, "\(1)")
+            isLoaded.fulfill()
+        }
+        
+        wait(for: [isLoaded], timeout: 3)
     }
     
     func testThat_isEmptyWorks() {
