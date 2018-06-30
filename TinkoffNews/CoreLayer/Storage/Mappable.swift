@@ -1,5 +1,5 @@
 //
-//  IMappable.swift
+//  Mappable.swift
 //  TinkoffNews
 //
 //  Created by Oleg Samoylov on 28/06/2018.
@@ -8,7 +8,7 @@
 
 import CoreData
 
-protocol IMappable {
+protocol Mappable {
     var id: String { get }
     func map(to entity: NSManagedObject)
 }

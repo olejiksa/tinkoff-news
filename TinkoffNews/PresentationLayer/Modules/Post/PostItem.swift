@@ -8,12 +8,15 @@
 
 import CoreData
 
-struct PostItem: Codable {
+struct PostItem: Codable, Mappable {
+    
+    // MARK: - Codable
+    
     let title: Title
     let content: String
-}
-
-extension PostItem: IMappable {
+    
+    // MARK: - Mappable
+    
     var id: String {
         return title.id
     }
@@ -22,6 +25,7 @@ extension PostItem: IMappable {
         entity.setValue(id, forKey: "id")
         entity.setValue(content, forKey: "content")
     }
+    
 }
 
 struct Title: Codable {

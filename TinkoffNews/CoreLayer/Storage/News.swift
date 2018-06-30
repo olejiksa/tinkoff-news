@@ -10,7 +10,7 @@ import CoreData
 
 extension News {
     
-    @nonobjc static func findOrInsert(_ model: IMappable, in context: NSManagedObjectContext) {
+    @nonobjc static func findOrInsert(_ model: Mappable, in context: NSManagedObjectContext) {
         if let cachedNews = News.find(by: model.id, in: context) {
             model.map(to: cachedNews)
         } else {
@@ -33,7 +33,7 @@ extension News {
         return nil
     }
     
-    @nonobjc private static func insert(_ model: IMappable, in context: NSManagedObjectContext) {
+    @nonobjc private static func insert(_ model: Mappable, in context: NSManagedObjectContext) {
         if let entity = NSEntityDescription.entity(forEntityName: "\(News.self)", in: context),
            let cachedNews = NSManagedObject(entity: entity, insertInto: context) as? News {
             model.map(to: cachedNews)
