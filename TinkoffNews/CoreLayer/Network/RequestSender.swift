@@ -14,31 +14,31 @@ enum Result<T> {
 }
 
 protocol IRequestSender {
-    func send<Parser>(config: RequestConfig<Parser>, completionHandler: @escaping (Result<Parser.Model>) -> ())
+    func send<Parser>(config: RequestConfig<Parser>, completion: @escaping (Result<Parser.Model>) -> ())
 }
 
 class RequestSender: IRequestSender {
     
     private let session = URLSession(configuration: .default)
     
-    func send<Parser>(config: RequestConfig<Parser>, completionHandler: @escaping (Result<Parser.Model>) -> ()) where Parser: IParser {
+    func send<Parser>(config: RequestConfig<Parser>, completion: @escaping (Result<Parser.Model>) -> ()) where Parser: IParser {
         guard let urlRequest = config.request.urlRequest else {
-            completionHandler(.error("URL string cannot be parsed to URL."))
+            completion(.error("URL string cannot be parsed to URL."))
             return
         }
         
         let task = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) in
             if let error = error {
-                completionHandler(.error(error.localizedDescription))
+                completion(.error(error.localizedDescription))
                 return
             }
             
             guard let data = data, let parsedModel: Parser.Model = config.parser.parse(data: data) else {
-                completionHandler(.error("Received data cannot be parsed."))
+                completion(.error("Received data cannot be parsed."))
                 return
             }
             
-            completionHandler(.success(parsedModel))
+            completion(.success(parsedModel))
         }
         
         task.resume()

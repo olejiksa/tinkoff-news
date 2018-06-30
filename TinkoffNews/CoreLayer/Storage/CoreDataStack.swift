@@ -98,7 +98,3 @@ class CoreDataStack: ICoreDataStack {
     }()
     
 }
-
-enum PersistanceStoreType {
-    case binary, inMemory, sqlite
-}

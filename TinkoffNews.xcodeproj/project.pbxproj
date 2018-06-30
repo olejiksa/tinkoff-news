@@ -46,6 +46,10 @@
 		EB504CC920E556B40065DBED /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC820E556B40065DBED /* String+HTML.swift */; };
 		EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */; };
 		EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAE420E6DB0700174F67 /* StorageTests.swift */; };
+		EB7EBAED20E7018700174F67 /* NewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAEC20E7018700174F67 /* NewsTests.swift */; };
+		EB7EBAEF20E725A400174F67 /* AlertLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAEE20E725A400174F67 /* AlertLogger.swift */; };
+		EB7EBAF120E7278C00174F67 /* ILoggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAF020E7278C00174F67 /* ILoggable.swift */; };
+		EB7EBAF320E72AC200174F67 /* PersistanceStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAF220E72AC200174F67 /* PersistanceStoreType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +106,10 @@
 		EB7EBAE220E6DB0700174F67 /* TinkoffNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7EBAE420E6DB0700174F67 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		EB7EBAE620E6DB0700174F67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB7EBAEC20E7018700174F67 /* NewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTests.swift; sourceTree = "<group>"; };
+		EB7EBAEE20E725A400174F67 /* AlertLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLogger.swift; sourceTree = "<group>"; };
+		EB7EBAF020E7278C00174F67 /* ILoggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILoggable.swift; sourceTree = "<group>"; };
+		EB7EBAF220E72AC200174F67 /* PersistanceStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceStoreType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				EB504CB220E478B20065DBED /* IMappable.swift */,
+				EB7EBAF220E72AC200174F67 /* PersistanceStoreType.swift */,
 				EB2B53D920E3A384001B387C /* CoreDataStack.swift */,
 				EB2B53DB20E3A5CB001B387C /* StorageManager.swift */,
 				EB2B53E320E3AA25001B387C /* News.swift */,
@@ -233,6 +242,8 @@
 		EB40F1F020E14856004216E2 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EB7EBAF020E7278C00174F67 /* ILoggable.swift */,
+				EB7EBAEE20E725A400174F67 /* AlertLogger.swift */,
 				EB40F1F120E14861004216E2 /* Feed */,
 				EB40F20D20E17B5B004216E2 /* Post */,
 			);
@@ -358,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				EB7EBAE420E6DB0700174F67 /* StorageTests.swift */,
+				EB7EBAEC20E7018700174F67 /* NewsTests.swift */,
 				EB7EBAE620E6DB0700174F67 /* Info.plist */,
 			);
 			path = TinkoffNewsTests;
@@ -471,6 +483,7 @@
 				EB40F20620E16091004216E2 /* RequestFactory.swift in Sources */,
 				EB40F21120E17B72004216E2 /* PostModel.swift in Sources */,
 				EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */,
+				EB7EBAEF20E725A400174F67 /* AlertLogger.swift in Sources */,
 				EB504CC920E556B40065DBED /* String+HTML.swift in Sources */,
 				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,
 				EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */,
@@ -480,11 +493,13 @@
 				EB40F1E620E144B6004216E2 /* RootAssembly.swift in Sources */,
 				EB2B53DE20E3A6E0001B387C /* FeedItem.swift in Sources */,
 				EB40F1EF20E14657004216E2 /* PresentationAssembly.swift in Sources */,
+				EB7EBAF120E7278C00174F67 /* ILoggable.swift in Sources */,
 				EB40F1EB20E1455A004216E2 /* CoreAssembly.swift in Sources */,
 				EB40F21720E245FC004216E2 /* NewsPostParser.swift in Sources */,
 				EB40F20A20E16163004216E2 /* NewsFeedRequest.swift in Sources */,
 				EB504CAD20E4047D0065DBED /* StorageService.swift in Sources */,
 				EB2B53E220E3A756001B387C /* PostItem.swift in Sources */,
+				EB7EBAF320E72AC200174F67 /* PersistanceStoreType.swift in Sources */,
 				EB40F1FF20E15E2C004216E2 /* RequestSender.swift in Sources */,
 				EB40F21520E24540004216E2 /* NewsPostRequest.swift in Sources */,
 				EB40F1FB20E15E03004216E2 /* RequestConfig.swift in Sources */,
@@ -506,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB7EBAED20E7018700174F67 /* NewsTests.swift in Sources */,
 				EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,8 @@
 //
 
 protocol IPresentationAssembly {
+    var logger: ILoggable { get }
+    
     func feedViewController() -> FeedViewController
     func postViewController(newsItem: FeedItem) -> PostViewController
 }
@@ -23,12 +25,16 @@ class PresentationAssembly: IPresentationAssembly {
         self.servicesAssembly = servicesAssembly
     }
     
+    // MARK: - ILoggable
+    
+    lazy var logger: ILoggable = AlertLogger()
+    
     // MARK: - FeedViewController
     
     func feedViewController() -> FeedViewController {
         let feedModel: IFeedModel = FeedModel(feedService: servicesAssembly.feedService,
                                               storageService: servicesAssembly.storageService)
-        return FeedViewController(model: feedModel, presentationAssembly: self)
+        return FeedViewController(model: feedModel, logger: logger, presentationAssembly: self)
     }
     
     // MARK: - PostViewController
@@ -37,7 +43,7 @@ class PresentationAssembly: IPresentationAssembly {
         let postModel: IPostModel = PostModel(newsItem: newsItem,
                                               postService: servicesAssembly.postService,
                                               storageService: servicesAssembly.storageService)
-        return PostViewController(model: postModel)
+        return PostViewController(model: postModel, logger: logger)
     }
     
 }

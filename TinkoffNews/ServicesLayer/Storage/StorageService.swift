@@ -50,12 +50,12 @@ class StorageService: IFeedService, IPostService, IStorageService {
         return storageManager.isEmpty(offset: calculateOffset(from: page))
     }
     
-    func saveNewsFeedItem(_ newsFeedItem: FeedItem, completion: @escaping ((String?) -> ())) {
-        storageManager.saveItem(newsFeedItem, completion: completion)
-    }
-    
     func saveNewsFeed(_ newsFeed: [FeedItem], completion: @escaping ((String?) -> ())) {
         storageManager.saveNewsFeed(newsFeed, completion: completion)
+    }
+    
+    func saveNewsFeedItem(_ newsFeedItem: FeedItem, completion: @escaping ((String?) -> ())) {
+        storageManager.saveItem(newsFeedItem, completion: completion)
     }
     
     func saveNewsPost(_ newsPost: PostItem, completion: @escaping (String?) -> ()) {

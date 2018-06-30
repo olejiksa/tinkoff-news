@@ -20,11 +20,14 @@ class PostViewController: UIViewController {
     // MARK: - Dependency
     
     private let model: IPostModel
+    private var logger: ILoggable
     
     // MARK: - Initializers
     
-    init(model: IPostModel) {
+    init(model: IPostModel, logger: ILoggable) {
         self.model = model
+        self.logger = logger
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,10 +50,10 @@ class PostViewController: UIViewController {
     // MARK: - Private methods
     
     private func configureData() {
-        model.getNewsPost(useCache: false) { [weak self] (attributedText, error) in
+        model.getNewsPost(usingCache: false) { [weak self] (attributedText, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    self?.showMessage(for: error)
+                    self?.logger.logMessage(for: error)
                     self?.postTextLabel.text = "No data available, try to open later"
                     self?.postTextLabel.textColor = .darkGray
                 } else {
@@ -58,7 +61,7 @@ class PostViewController: UIViewController {
                     self?.postTextLabel.textColor = .black
                     self?.model.saveNewsPost() { [weak self] error in
                         if let error = error {
-                            self?.showMessage(for: error)
+                            self?.logger.logMessage(for: error)
                         }
                     }
                 }
@@ -69,17 +72,13 @@ class PostViewController: UIViewController {
     }
     
     private func configureUI() {
+        logger.delegate = self
+        
         titleLabel.text = model.postTitle
         
         navigationItem.title = model.postDate
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
-    }
-    
-    private func showMessage(for error: String) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
     
 }

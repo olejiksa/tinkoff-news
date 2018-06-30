@@ -14,7 +14,7 @@ protocol IPostModel {
     
     var postItem: PostItem? { get set }
     
-    func getNewsPost(useCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ())
+    func getNewsPost(usingCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ())
     func saveNewsPost(completion: @escaping ((String?) -> ()))
 }
 
@@ -53,14 +53,13 @@ class PostModel: IPostModel {
     
     var postItem: PostItem?
     
-    func getNewsPost(useCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ()) {
-        let service = useCache ? storageService : postService
+    func getNewsPost(usingCache: Bool, completion: @escaping (NSAttributedString?, String?) -> ()) {
+        let service = usingCache ? storageService : postService
         
-        service.getNewsPost(id: newsItem.id) { postItem, error in
+        service.getNewsPost(id: newsItem.id) { [weak self] postItem, error in
             guard let post = postItem else {
-                if !useCache {
-                    // При неудаче получить текст новости из сети
-                    self.getNewsPost(useCache: true, completion: completion)
+                if !usingCache {
+                    self?.getNewsPost(usingCache: true, completion: completion)
                     return
                 }
                 
@@ -68,7 +67,7 @@ class PostModel: IPostModel {
                 return
             }
             
-            self.postItem = postItem
+            self?.postItem = postItem
             guard let parsedString = String(htmlEncodedString: post.content) else {
                 completion(nil, "HTML cannot be parsed into NSAttributedString.")
                 return

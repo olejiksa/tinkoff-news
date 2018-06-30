@@ -2,7 +2,7 @@
 //  StorageTests.swift
 //  TinkoffNewsTests
 //
-//  Created by Олег Самойлов on 30/06/2018.
+//  Created by Oleg Samoylov on 30/06/2018.
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
@@ -107,7 +107,32 @@ class StorageTests: XCTestCase {
     }
     
     func testThat_isEmptyWorks() {
+        let isSavedFeedItem = expectation(description: "isSavedFeedItem")
+        let isSavedPostItem = expectation(description: "isSavedPostItem")
         
+        var newsFeedItem: FeedItem!
+        var newsPost: PostItem!
+        
+        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!", publicationDate: PublicationDate(milliseconds: Date().milliseconds()), viewsCount: 0)
+        newsPost = PostItem(title: Title(id: newsFeedItem.id), content: "Content for test")
+        
+        XCTAssertTrue(storageService.isEmpty(for: 1))
+        
+        storageService.saveNewsFeedItem(newsFeedItem) { error in
+            XCTAssertNil(error)
+            isSavedFeedItem.fulfill()
+        }
+        
+        wait(for: [isSavedFeedItem], timeout: 3)
+        
+        storageService.saveNewsPost(newsPost) { error in
+            XCTAssertNil(error)
+            isSavedPostItem.fulfill()
+        }
+        
+        wait(for: [isSavedPostItem], timeout: 3)
+        
+        XCTAssertFalse(storageService.isEmpty(for: 1))
     }
     
 }

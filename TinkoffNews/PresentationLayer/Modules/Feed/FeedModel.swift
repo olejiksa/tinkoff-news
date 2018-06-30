@@ -10,7 +10,7 @@ protocol IFeedModel {
     var data: [FeedItem] { get set }
     
     func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
-                     manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
+                     usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
     func saveNewsFeed(completion: @escaping ((String?) -> ()))
     func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ()))
 }
@@ -31,41 +31,28 @@ class FeedModel: IFeedModel {
     
     // MARK: - IFeedModel
     
-    private var useCache: Bool = true
     var data = [FeedItem]()
     
     func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
-                     manually: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
-        /* Проверка наличия новостей в кэше для соответствующей "страницы"
-           и выбор подходящего сервиса */
-        let service: IFeedService
+                     usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
+        let service = !usingCache || storageService.isEmpty(for: page) ? feedService : storageService
         
-        if manually {
-            useCache = false
-            service = feedService
-        } else if !useCache || storageService.isEmpty(for: page)  {
-            service = feedService
-        } else {
-            service = storageService
-        }
-        
-        service.getNewsFeed(page: page) { [unowned self] newsItems, error in
+        service.getNewsFeed(page: page) { [weak self] newsItems, error in
             guard var newsItems = newsItems else {
                 completion(nil, error, false)
                 
                 /* В случае неудачи получить данные из кэша,
                    если обновление было вызвано через pull to refresh */
-                if manually {
-                    self.useCache = true
-                    self.getNewsFeed(page: page, mergePolicy: mergePolicy, manually: false, completion: completion)
+                if !usingCache && mergePolicy == .overwrite {
+                    self?.getNewsFeed(page: page, mergePolicy: mergePolicy, usingCache: true, completion: completion)
                 }
                 
                 return
             }
             
-            if !self.useCache {
+            if !usingCache {
                 // Получение данных из кэша для сравнения с данными из сети
-                self.storageService.getViewsCounts(page: page) { [unowned self] viewsCounts, error in
+                self?.storageService.getViewsCounts(page: page) { [weak self] viewsCounts, error in
                     guard let viewsCounts = viewsCounts else {
                         completion(nil, error, false)
                         return
@@ -73,18 +60,14 @@ class FeedModel: IFeedModel {
                     
                     // Синхронизация счетчиков просмотров
                     for i in 0..<newsItems.count {
-                        for oldItem in viewsCounts {
-                            if newsItems[i].id == oldItem.key {
-                                newsItems[i].viewsCount += oldItem.value
-                            }
-                        }
+                        newsItems[i].viewsCount += viewsCounts[newsItems[i].id]!
                     }
                     
-                    self.completeFetching(service: service, newsItems: newsItems,
+                    self?.completeFetching(service: service, newsItems: newsItems,
                                      mergePolicy: mergePolicy, completion: completion)
                 }
             } else {
-                self.completeFetching(service: service, newsItems: newsItems,
+                self?.completeFetching(service: service, newsItems: newsItems,
                                  mergePolicy: mergePolicy, completion: completion)
             }
         }

@@ -28,13 +28,16 @@ class FeedViewController: UIViewController {
     // MARK: - Dependencies
     
     private var model: IFeedModel
+    private var logger: ILoggable
     private let presentationAssembly: IPresentationAssembly
     
     // MARK: - Initializers
     
-    init(model: IFeedModel, presentationAssembly: IPresentationAssembly) {
+    init(model: IFeedModel, logger: ILoggable, presentationAssembly: IPresentationAssembly) {
         self.model = model
+        self.logger = logger
         self.presentationAssembly = presentationAssembly
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,12 +55,12 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureData(mergePolicy: .overwrite, manually: false)
+        configureData(mergePolicy: .overwrite, usingCache: true)
     }
     
     // MARK: - Private methods
     
-    private func configureData(mergePolicy: FeedMergePolicy, manually: Bool) {
+    private func configureData(mergePolicy: FeedMergePolicy, usingCache: Bool) {
         switch mergePolicy {
         case .overwrite:
             pageIndex = 1
@@ -65,16 +68,17 @@ class FeedViewController: UIViewController {
             pageIndex += 1
         }
         
-        model.getNewsFeed(page: pageIndex, mergePolicy: mergePolicy, manually: manually) { [weak self] (newsItems, error, save) in
+        model.getNewsFeed(page: pageIndex, mergePolicy: mergePolicy, usingCache: usingCache) {
+            [weak self] (newsItems, error, save) in
             DispatchQueue.main.async {
                 if let error = error {
-                    self?.showMessage(for: error)
+                    self?.logger.logMessage(for: error)
                 } else {
                     self?.tableView.reloadData()
                     if save {
                         self?.model.saveNewsFeed() { [weak self] error in
                             if let error = error {
-                                self?.showMessage(for: error)
+                                self?.logger.logMessage(for: error)
                             }
                         }
                     }
@@ -84,6 +88,8 @@ class FeedViewController: UIViewController {
     }
     
     private func configureUI() {
+        logger.delegate = self
+        
         tableView.refreshControl = refreshControl
         
         navigationItem.title = "Tinkoff News"
@@ -97,16 +103,10 @@ class FeedViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    private func showMessage(for error: String) {
-        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
     // MARK: - Selector
     
     @objc private func updateData() {
-        configureData(mergePolicy: .overwrite, manually: true)
+        configureData(mergePolicy: .overwrite, usingCache: false)
         refreshControl.endRefreshing()
     }
     
@@ -180,7 +180,7 @@ extension FeedViewController: UITableViewDelegate {
         
         model.saveNewsFeedItem(by: indexPath.row) { [weak self] error in
             if let error = error {
-                self?.showMessage(for: error)
+                self?.logger.logMessage(for: error)
             }
         }
         
@@ -192,7 +192,7 @@ extension FeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == model.data.count {
-            configureData(mergePolicy: .append, manually: false)
+            configureData(mergePolicy: .append, usingCache: true)
         }
     }
     
