@@ -8,6 +8,8 @@
 
 struct RequestFactory {
     
+    static let endpointRoot = "https://api.tinkoff.ru/v1/"
+    
     static func getNewsFeed(first: Int, last: Int) -> RequestConfig<NewsFeedParser> {
         let request = NewsFeedRequest(first: first, last: last)
         let parser = NewsFeedParser()

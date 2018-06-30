@@ -45,6 +45,7 @@
 		EB504CC620E5515D0065DBED /* LoadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC520E5515D0065DBED /* LoadCell.swift */; };
 		EB504CC920E556B40065DBED /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CC820E556B40065DBED /* String+HTML.swift */; };
 		EB504CCB20E574CF0065DBED /* Date+Milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */; };
+		EB74870620E7F52200586EF6 /* NewsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74870520E7F52200586EF6 /* NewsRequest.swift */; };
 		EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAE420E6DB0700174F67 /* StorageTests.swift */; };
 		EB7EBAED20E7018700174F67 /* NewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAEC20E7018700174F67 /* NewsTests.swift */; };
 		EB7EBAEF20E725A400174F67 /* AlertLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7EBAEE20E725A400174F67 /* AlertLogger.swift */; };
@@ -103,6 +104,7 @@
 		EB504CC520E5515D0065DBED /* LoadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCell.swift; sourceTree = "<group>"; };
 		EB504CC820E556B40065DBED /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		EB504CCA20E574CF0065DBED /* Date+Milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Milliseconds.swift"; sourceTree = "<group>"; };
+		EB74870520E7F52200586EF6 /* NewsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRequest.swift; sourceTree = "<group>"; };
 		EB7EBAE220E6DB0700174F67 /* TinkoffNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7EBAE420E6DB0700174F67 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		EB7EBAE620E6DB0700174F67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		EB40F20720E1613B004216E2 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				EB74870520E7F52200586EF6 /* NewsRequest.swift */,
 				EB40F20920E16163004216E2 /* NewsFeedRequest.swift */,
 				EB40F21420E24540004216E2 /* NewsPostRequest.swift */,
 			);
@@ -488,6 +491,7 @@
 				EB504CBC20E531310065DBED /* NewsCell.swift in Sources */,
 				EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */,
 				EB504CB320E478B20065DBED /* IMappable.swift in Sources */,
+				EB74870620E7F52200586EF6 /* NewsRequest.swift in Sources */,
 				EB2B53E020E3A730001B387C /* FeedMergePolicy.swift in Sources */,
 				EB40F1ED20E145D0004216E2 /* ServicesAssembly.swift in Sources */,
 				EB40F1E620E144B6004216E2 /* RootAssembly.swift in Sources */,
