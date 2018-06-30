@@ -12,8 +12,6 @@ class FeedViewController: UIViewController {
     
     // MARK: - UI
     
-    private var pageIndex = 1
-    
     @IBOutlet private weak var tableView: UITableView!
     
     lazy private var refreshControl: UIRefreshControl = {
@@ -63,12 +61,12 @@ class FeedViewController: UIViewController {
     private func configureData(mergePolicy: FeedMergePolicy, usingCache: Bool) {
         switch mergePolicy {
         case .overwrite:
-            pageIndex = 1
+            model.pageNumber = 1
         case .append:
-            pageIndex += 1
+            model.pageNumber += 1
         }
         
-        model.getNewsFeed(page: pageIndex, mergePolicy: mergePolicy, usingCache: usingCache) {
+        model.getNewsFeed(mergePolicy: mergePolicy, usingCache: usingCache) {
             [weak self] (newsItems, error, save) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -156,9 +154,7 @@ extension FeedViewController: UITableViewDataSource {
             cell = NewsCell(style: .default, reuseIdentifier: identifier)
         }
         
-        cell.title = model.data[indexPath.row].title
-        cell.date = Date.create(from: model.data[indexPath.row].publicationDate.milliseconds)
-        cell.viewsCount = model.data[indexPath.row].viewsCount
+        cell.setup(from: model.data[indexPath.row])
         
         return cell
     }

@@ -8,9 +8,9 @@
 
 protocol IFeedModel {
     var data: [FeedItem] { get set }
+    var pageNumber: Int { get set }
     
-    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
-                     usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
+    func getNewsFeed(mergePolicy: FeedMergePolicy, usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ())
     func saveNewsFeed(completion: @escaping ((String?) -> ()))
     func saveNewsFeedItem(by index: Int, completion: @escaping ((String?) -> ()))
 }
@@ -32,27 +32,32 @@ class FeedModel: IFeedModel {
     // MARK: - IFeedModel
     
     var data = [FeedItem]()
+    var pageNumber = 1
     
-    func getNewsFeed(page: Int, mergePolicy: FeedMergePolicy,
-                     usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
-        let service = !usingCache || storageService.isEmpty(for: page) ? feedService : storageService
+    func getNewsFeed(mergePolicy: FeedMergePolicy, usingCache: Bool, completion: @escaping ([FeedItem]?, String?, Bool) -> ()) {
+        let service = !usingCache || storageService.isEmpty(for: pageNumber) ? feedService : storageService
         
-        service.getNewsFeed(page: page) { [weak self] newsItems, error in
+        service.getNewsFeed(page: pageNumber) { [weak self] newsItems, error in
             guard var newsItems = newsItems else {
                 completion(nil, error, false)
                 
                 /* В случае неудачи получить данные из кэша,
                    если обновление было вызвано через pull to refresh */
                 if !usingCache && mergePolicy == .overwrite {
-                    self?.getNewsFeed(page: page, mergePolicy: mergePolicy, usingCache: true, completion: completion)
+                    self?.getNewsFeed(mergePolicy: mergePolicy, usingCache: true, completion: completion)
                 }
                 
                 return
             }
             
             if !usingCache {
+                guard let pageNumber = self?.pageNumber else {
+                    completion(nil, error, false)
+                    return
+                }
+                
                 // Получение данных из кэша для сравнения с данными из сети
-                self?.storageService.getViewsCounts(page: page) { [weak self] viewsCounts, error in
+                self?.storageService.getViewsCounts(page: pageNumber) { [weak self] viewsCounts, error in
                     guard let viewsCounts = viewsCounts else {
                         completion(nil, error, false)
                         return
