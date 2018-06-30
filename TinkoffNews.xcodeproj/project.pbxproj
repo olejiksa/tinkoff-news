@@ -371,9 +371,9 @@
 		EB7EBAE320E6DB0700174F67 /* TinkoffNewsTests */ = {
 			isa = PBXGroup;
 			children = (
+				EB7EBAE620E6DB0700174F67 /* Info.plist */,
 				EB7EBAE420E6DB0700174F67 /* StorageTests.swift */,
 				EB7EBAEC20E7018700174F67 /* NewsTests.swift */,
-				EB7EBAE620E6DB0700174F67 /* Info.plist */,
 			);
 			path = TinkoffNewsTests;
 			sourceTree = "<group>";

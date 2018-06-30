@@ -40,7 +40,9 @@ class StorageTests: XCTestCase {
         var newsFeed = [FeedItem]()
         
         for i in 1...10 {
-            newsFeed.append(FeedItem(id: "\(i)", text: "\(i)", publicationDate: PublicationDate(milliseconds: i * i), viewsCount: i - 1))
+            newsFeed.append(FeedItem(id: "\(i)", text: "\(i)",
+                publicationDate: PublicationDate(milliseconds: i * i),
+                viewsCount: i - 1))
         }
         
         storageService.saveNewsFeed(newsFeed) { error in
@@ -79,7 +81,9 @@ class StorageTests: XCTestCase {
         var newsFeedItem: FeedItem!
         var newsPost: PostItem!
         
-        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!", publicationDate: PublicationDate(milliseconds: Date().milliseconds()), viewsCount: 0)
+        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!",
+                                publicationDate: PublicationDate(milliseconds: Date().milliseconds()),
+                                viewsCount: 0)
         newsPost = PostItem(title: Title(id: newsFeedItem.id), content: expectedContent)
         
         storageService.saveNewsFeedItem(newsFeedItem) { error in
@@ -113,7 +117,9 @@ class StorageTests: XCTestCase {
         var newsFeedItem: FeedItem!
         var newsPost: PostItem!
         
-        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!", publicationDate: PublicationDate(milliseconds: Date().milliseconds()), viewsCount: 0)
+        newsFeedItem = FeedItem(id: "\(1)", text: "Hello, World!",
+                                publicationDate: PublicationDate(milliseconds: Date().milliseconds()),
+                                viewsCount: 0)
         newsPost = PostItem(title: Title(id: newsFeedItem.id), content: "Content for test")
         
         XCTAssertTrue(storageService.isEmpty(for: 1))

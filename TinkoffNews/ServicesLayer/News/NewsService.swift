@@ -21,6 +21,11 @@ class NewsService: IFeedService, IPostService {
     // MARK: - IFeedService
     
     func getNewsFeed(page: Int, completion: @escaping ([FeedItem]?, String?) -> ()) {
+        guard page > 0 && page < (.max / 20) + 1 else {
+            completion(nil, "Index out of bounds")
+            return
+        }
+        
         let requestConfig = RequestFactory.getNewsFeed(first: calculateOffset(from: page),
                                                        last: 20 * page)
         
