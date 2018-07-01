@@ -66,7 +66,7 @@ class NewsTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "News post has been loaded")
         let expectationModel = (id: "9746",
-                                contentStartsWith: "Москва, Россия")
+                                contentStartsWith: "Москва, Россия — 20 ноября 2017")
         
         newsService.getNewsPost(id: expectationModel.id) { post, error in
             guard let postUnwrapped = post else {
