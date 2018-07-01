@@ -17,12 +17,12 @@ class FakeRequestSender: IRequestSender, Nameable {
     var resourseName: String?
     
     func send<Parser>(config: RequestConfig<Parser>, completion: @escaping (Result<Parser.Model>) -> ()) where Parser: IParser {
-        guard let resouseNameUnwrapped = resourseName else {
+        guard let resouseName = resourseName else {
             completion(.error("Resource name is nil."))
             return
         }
         
-        if let path = Bundle(for: type(of: self)).path(forResource: resouseNameUnwrapped, ofType: "json") {
+        if let path = Bundle(for: type(of: self)).path(forResource: resouseName, ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 guard let parsedModel: Parser.Model = config.parser.parse(data: data) else {
@@ -35,7 +35,7 @@ class FakeRequestSender: IRequestSender, Nameable {
                 completion(.error(error.localizedDescription))
             }
         } else {
-            completion(.error("Not found: \(resouseNameUnwrapped)"))
+            completion(.error("Not found: \(resouseName)"))
         }
     }
 }

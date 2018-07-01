@@ -69,16 +69,16 @@ class NewsTests: XCTestCase {
                                 contentStartsWith: "Москва, Россия — 20 ноября 2017")
         
         newsService.getNewsPost(id: expectationModel.id) { post, error in
-            guard let postUnwrapped = post else {
+            guard let post = post else {
                 XCTFail()
                 return
             }
             
             XCTAssertNil(error)
             
-            XCTAssertEqual(postUnwrapped.id, expectationModel.id)
+            XCTAssertEqual(post.id, expectationModel.id)
             
-            let decodedString = String(htmlEncodedString: postUnwrapped.content)
+            let decodedString = String(htmlEncodedString: post.content)
             let prefixedDecodedString = decodedString?.prefix(expectationModel.contentStartsWith.count).description
             XCTAssertEqual(prefixedDecodedString, expectationModel.contentStartsWith)
             
