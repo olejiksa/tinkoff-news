@@ -15,6 +15,9 @@
 		EB2B53E020E3A730001B387C /* FeedMergePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53DF20E3A730001B387C /* FeedMergePolicy.swift */; };
 		EB2B53E220E3A756001B387C /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53E120E3A756001B387C /* PostItem.swift */; };
 		EB2B53E420E3AA25001B387C /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B53E320E3AA25001B387C /* News.swift */; };
+		EB2B657E20E8FA2D0000933A /* FakeRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2B657D20E8FA2D0000933A /* FakeRequestSender.swift */; };
+		EB2B658320E901510000933A /* FakeNewsPost.json in Resources */ = {isa = PBXBuildFile; fileRef = EB2B658220E901510000933A /* FakeNewsPost.json */; };
+		EB2B658520E901800000933A /* FakeNewsFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = EB2B658420E901800000933A /* FakeNewsFeed.json */; };
 		EB40F1CD20E14049004216E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F1CC20E14049004216E2 /* AppDelegate.swift */; };
 		EB40F1D520E14049004216E2 /* TinkoffNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB40F1D320E14049004216E2 /* TinkoffNews.xcdatamodeld */; };
 		EB40F1D720E1404B004216E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB40F1D620E1404B004216E2 /* Assets.xcassets */; };
@@ -72,6 +75,9 @@
 		EB2B53DF20E3A730001B387C /* FeedMergePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedMergePolicy.swift; sourceTree = "<group>"; };
 		EB2B53E120E3A756001B387C /* PostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItem.swift; sourceTree = "<group>"; };
 		EB2B53E320E3AA25001B387C /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		EB2B657D20E8FA2D0000933A /* FakeRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRequestSender.swift; sourceTree = "<group>"; };
+		EB2B658220E901510000933A /* FakeNewsPost.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FakeNewsPost.json; sourceTree = "<group>"; };
+		EB2B658420E901800000933A /* FakeNewsFeed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FakeNewsFeed.json; sourceTree = "<group>"; };
 		EB40F1C920E14049004216E2 /* TinkoffNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB40F1CC20E14049004216E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB40F1D420E14049004216E2 /* TinkoffNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TinkoffNews.xcdatamodel; sourceTree = "<group>"; };
@@ -142,6 +148,17 @@
 				EB2B53E320E3AA25001B387C /* News.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		EB2B658120E8FE8E0000933A /* News */ = {
+			isa = PBXGroup;
+			children = (
+				EB7EBAEC20E7018700174F67 /* NewsTests.swift */,
+				EB2B657D20E8FA2D0000933A /* FakeRequestSender.swift */,
+				EB2B658420E901800000933A /* FakeNewsFeed.json */,
+				EB2B658220E901510000933A /* FakeNewsPost.json */,
+			);
+			path = News;
 			sourceTree = "<group>";
 		};
 		EB40F1C020E14049004216E2 = {
@@ -373,7 +390,7 @@
 			children = (
 				EB7EBAE620E6DB0700174F67 /* Info.plist */,
 				EB7EBAE420E6DB0700174F67 /* StorageTests.swift */,
-				EB7EBAEC20E7018700174F67 /* NewsTests.swift */,
+				EB2B658120E8FE8E0000933A /* News */,
 			);
 			path = TinkoffNewsTests;
 			sourceTree = "<group>";
@@ -472,6 +489,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB2B658320E901510000933A /* FakeNewsPost.json in Resources */,
+				EB2B658520E901800000933A /* FakeNewsFeed.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7EBAED20E7018700174F67 /* NewsTests.swift in Sources */,
+				EB2B657E20E8FA2D0000933A /* FakeRequestSender.swift in Sources */,
 				EB7EBAE520E6DB0700174F67 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

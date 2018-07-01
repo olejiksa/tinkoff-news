@@ -1,0 +1,186 @@
+{
+    "resultCode": "OK",
+    "payload": [
+                {
+                "id": "9746",
+                "name": "20112017-tcs-group-holding-plc-fin-results-3q-2017-rus",
+                "text": "TCS Group Holding PLC объявляет финансовые результаты по МСФО за III квартал и 9 месяцев 2017 г. и сообщает о выплате промежуточных дивидендов",
+                "publicationDate": {
+                "milliseconds": 1511164881000
+                },
+                "bankInfoTypeId": 3
+                },
+                {
+                "id": "9744",
+                "name": "20112017-tcs-group-holding-plc-fin-results-3q-2017-fin",
+                "text": "TCS Group Holding PLC объявляет финансовые результаты по МСФО за III квартал и 9 месяцев 2017 г. и сообщает о выплате промежуточных дивидендов",
+                "publicationDate": {
+                "milliseconds": 1511164871000
+                },
+                "bankInfoTypeId": 3
+                },
+                {
+                "id": "9724",
+                "name": "15112017-tinkoff-bank-x-ukbo",
+                "text": "Тинькофф Банк вводит в действие новую редакцию Условий комплексного банковского обслуживания физических лиц",
+                "publicationDate": {
+                "milliseconds": 1510758101000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9704",
+                "name": "15112017-tinkoff-bank-x-domru",
+                "text": "Тинькофф Банк и «Дом.ru» запустили кобрендовые карты для геймеров",
+                "publicationDate": {
+                "milliseconds": 1510743714000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9684",
+                "name": "14112017-tinkoff-credit-cards-research-3q2017",
+                "text": "Исследование Тинькофф Банка: в третьем квартале 2017 г. рынок кредитных карт ускорил рост",
+                "publicationDate": {
+                "milliseconds": 1510664507000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9685",
+                "name": "14112017-tinkoff-credit-cards-research-3q2017-eng",
+                "text": "Tinkoff Bank Research: 3Q 2017 sees accelerated growth of the credit card market",
+                "publicationDate": {
+                "milliseconds": 1510664501000
+                },
+                "bankInfoTypeId": 1
+                },
+                {
+                "id": "9664",
+                "name": "08112017-tinkoff-business",
+                "text": "Тинькофф Бизнес вносит изменения в Общие условия перевода денежных средств",
+                "publicationDate": {
+                "milliseconds": 1510149670000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9644",
+                "name": "02112017-tinkoff-bank-x-markswebb-rank-report",
+                "text": "Мобильное приложение Тинькофф Банка — лучшее в СНГ по версии Markswebb",
+                "publicationDate": {
+                "milliseconds": 1509620499000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9624",
+                "name": "01112017-tinkoff-mortgage-x-gazprombank",
+                "text": "Газпромбанк стал партнером Тинькофф Ипотеки",
+                "publicationDate": {
+                "milliseconds": 1509530482000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9604",
+                "name": "31102017-tinkoff-bank-x-mkb",
+                "text": "Клиенты Тинькофф Банка теперь смогут пополнять карты через банкоматы Московского Кредитного Банка",
+                "publicationDate": {
+                "milliseconds": 1509454876000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9585",
+                "name": "27102017-tinkoff-bank-x-aliexpress",
+                "text": "Тинькофф Банк, Tmall и AliExpress проводят совместную акцию",
+                "publicationDate": {
+                "milliseconds": 1509120100000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9584",
+                "name": "27102017-tinkoff-x-expert-400",
+                "text": "Тинькофф Банк улучшил позиции в рейтинге крупнейших компаний \"Эксперт 400\"",
+                "publicationDate": {
+                "milliseconds": 1509102062000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9564",
+                "name": "26102017-tinkoff-bank-x-uber",
+                "text": "Начать свой бизнес: Тинькофф и Uber запустили пилотный проект для водителей-партнеров",
+                "publicationDate": {
+                "milliseconds": 1509015677000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9544",
+                "name": "25102017-tinkoff-bank-x-jivo-site",
+                "text": "Сервис Тинькофф Оплата интегрировался с чатом для бизнеса JivoSite",
+                "publicationDate": {
+                "milliseconds": 1508943715000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9524",
+                "name": "23102017-tinkoff-bank-cuts-interest-rates",
+                "text": "Тинькофф Банк снижает ставки по рублевым вкладам",
+                "publicationDate": {
+                "milliseconds": 1508778061000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9505",
+                "name": "20102017-tinkoff-bank-changes-debit-cards-rates-for-adolescents-pensioners",
+                "text": "Тинькофф банк отменяет плату за обслуживание расчетных счетов для подростков и пенсионеров",
+                "publicationDate": {
+                "milliseconds": 1508511708000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9504",
+                "name": "20102017-tinkoff-bank-changes-debit-cards-rates",
+                "text": "Тинькофф Банк вносит изменения в тарифы по дебетовым картам с 31 октября 2017 г.",
+                "publicationDate": {
+                "milliseconds": 1508511707000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9484",
+                "name": "12102017-tinkoff-x-cp-eng",
+                "text": "TCS Group Holding PLC acquires a majority stake in CloudPayments",
+                "publicationDate": {
+                "milliseconds": 1507834901000
+                },
+                "bankInfoTypeId": 1
+                },
+                {
+                "id": "9485",
+                "name": "12102017-tinkoff-x-cp-rus",
+                "text": "Группа Тинькофф Банка покупает долю в компании CloudPayments",
+                "publicationDate": {
+                "milliseconds": 1507834891000
+                },
+                "bankInfoTypeId": 2
+                },
+                {
+                "id": "9464",
+                "name": "10102017-tinkoff-bank-changes-debit-cards-rates",
+                "text": "Тинькофф Банк запускает дополнительные лимиты на снятие и пополнение в банкоматах Тинькофф",
+                "publicationDate": {
+                "milliseconds": 1507658509000
+                },
+                "bankInfoTypeId": 2
+                }
+                ],
+    "trackingId": "77936224625"
+}
