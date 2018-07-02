@@ -65,7 +65,9 @@ class FeedModel: IFeedModel {
                     
                     // Синхронизация счетчиков просмотров
                     for i in 0..<newsItems.count {
-                        newsItems[i].viewsCount += viewsCounts[newsItems[i].id]!
+                        if let vc = viewsCounts[newsItems[i].id] {
+                            newsItems[i].viewsCount += vc
+                        }
                     }
                     
                     self?.completeFetching(service: service, newsItems: newsItems,
